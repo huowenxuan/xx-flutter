@@ -10,17 +10,27 @@ import 'package:flutter_ui_nice/const/images_const.dart';
 import 'package:flutter_ui_nice/const/page_str_const.dart';
 
 const _MENU_STRINGS = [
-  {'title': "Sign Up", 'items': SIGN_UP_PAGES},
-  {'title': "Walk Through", 'items': WALK_THROUGH_PAGES},
-  {'title': "Navigation", 'items': NAVIGATION_PAGES},
-  {'title': "Profile", 'items': PROFILE_PAGES},
-  {'title': "Feed", 'items': FEED_PAGES},
-  {'title': "Chat", 'items': CHAT_PAGES},
-  {'title': "Shoppig", 'items': SHOPPING_PAGES},
-  {'title': "Statistics", 'items': STATISTIC_PAGES},
-  {'title': "Media", 'items': MEDIA_PAGES},
-  {'title': "Camera", 'items': CAMERA_PAGES},
+  {
+    'title': "Note",
+    'items': SIGN_UP_PAGES,
+    'icon': Icons.event_note,
+    'image': MainImagePath.image_sign_up
+  },
+
+  {
+    'title': "Vogue",
+    'items': WALK_THROUGH_PAGES,
+    'icon': Icons.photo_camera,
+    'image': MainImagePath.image_walk_through
+  },
+  {
+    'title': "Note",
+    'items': NAVIGATION_PAGES,
+    'icon': Icons.alternate_email,
+    'image': MainImagePath.image_navigation
+  }
 ];
+
 const _MENU_COLORS = [
   0xff050505,
   0xffc8c4bd,
@@ -33,30 +43,6 @@ const _MENU_COLORS = [
   0xffddcec2,
   0xff261d33,
 ];
-const _MENU_ICONS = [
-  Icons.airplanemode_active,
-  Icons.live_help,
-  Icons.location_on,
-  Icons.account_box,
-  Icons.feedback,
-  Icons.chat,
-  Icons.shopping_cart,
-  Icons.all_inclusive,
-  Icons.play_circle_outline,
-  Icons.linked_camera,
-];
-const _IMAGE_PATHS = [
-  MainImagePath.image_sign_up,
-  MainImagePath.image_walk_through,
-  MainImagePath.image_navigation,
-  MainImagePath.image_profile,
-  MainImagePath.image_feed,
-  MainImagePath.image_chat,
-  MainImagePath.image_shopping,
-  MainImagePath.image_statistic,
-  MainImagePath.image_media,
-  MainImagePath.image_camera,
-];
 
 class MenuController {
   final controller = StreamController<List<Menu>>();
@@ -67,23 +53,16 @@ class MenuController {
     controller.add(menus ?? _defaultMenus());
   }
 
-  static String _title(index) {
-    return _MENU_STRINGS[index % _MENU_STRINGS.length]['title'];
-  }
-
-  static List<String> _items(index) {
-    return _MENU_STRINGS[index % _MENU_STRINGS.length]['items'];
-  }
-
   List<Menu> _defaultMenus() {
     var list = List<Menu>();
     for (int i = 0; i < _MENU_STRINGS.length; i++) {
       list.add(Menu(
-          title: _title(i),
-          icon: _MENU_ICONS[i],
+          title: _MENU_STRINGS[i % _MENU_STRINGS.length]['title'],
+          icon: _MENU_STRINGS[i]['icon'],
           menuColor: Color(_MENU_COLORS[i]),
-          image: _IMAGE_PATHS[i],
-          items: _items(i)));
+          image: _MENU_STRINGS[i]['image'],
+          items: _MENU_STRINGS[i % _MENU_STRINGS.length]['items']
+      ));
     }
     return list;
   }

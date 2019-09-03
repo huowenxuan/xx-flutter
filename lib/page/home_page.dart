@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
         expandedHeight: 150.0,
         flexibleSpace: FlexibleSpaceBar(
           title: Padding(
-            padding: EdgeInsets.only(top: 30.0),
+            padding: EdgeInsets.only(top: 30, left: 75),
             child: Row(
               children: <Widget>[
                 Image.asset(
@@ -73,11 +73,6 @@ class HomePage extends StatelessWidget {
                     fontWeight: FontWeight.w700),
               ),
             ]
-//            Divider(
-//              height: 1.0,
-//              color: Colors.white,
-//            )
-//          ],
             ),
       ),
       onTap: () {
@@ -130,27 +125,27 @@ class HomePage extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       builder: (context) => Material(
-            color: GREEN,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0),
+        color: GREEN,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            _header(),
+            Expanded(
+              child: Container(
+                child: _menuList(menu),
               ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                _header(),
-                Expanded(
-                  child: Container(
-                    child: _menuList(menu),
-                  ),
-                ),
-                AboutMeTitle(),
-              ],
-            ),
-          ),
+            AboutMeTitle(),
+          ],
+        ),
+      ),
     );
   }
 

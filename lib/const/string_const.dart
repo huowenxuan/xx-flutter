@@ -7,11 +7,11 @@
 
 class StringConst {
   //strings
-  static const String APP_NAME = "flutter-ui-nice";
-  static const String CREATE_BY = "Created By Volunteer";
-  static const String DEVELOPER = "Volunteer";
+  static const String APP_NAME = "来杯小柠檬";
+  static const String CREATE_BY = "Created By Hwx";
+  static const String DEVELOPER = "Hwx";
   static const String PROFESSION = "Flutter Developer";
-  static const String DEV_EMAIL = "niebin312@gmail.com";
+  static const String DEV_EMAIL = "1078954008@qq.com";
   static const String SIGN_UP = "Sing Up";
   static const String SIGN_UP_TEXT = "Don't have an account?";
 }
