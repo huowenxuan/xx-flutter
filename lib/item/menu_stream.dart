@@ -1,34 +1,72 @@
-///
-/// Created by NieBin on 18-12-15
-/// Github: https://github.com/nb312
-/// Email: niebin312@gmail.com
-///
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_nice/item/Menu.dart';
 import 'package:flutter_ui_nice/const/images_const.dart';
-import 'package:flutter_ui_nice/const/page_str_const.dart';
+
+const SIGN_UP_PAGES = [
+  "Sign up page 01",
+  "Sign up page 02",
+  "Sign up page 03",
+  "Sign up page 04",
+  "Sign up page 05",
+  "Sign up page 06",
+  "Sign up page 07",
+  "Sign up page 08",
+  "Sign up page 09",
+  "Sign up page 10",
+  "Sign up page 11",
+];
+const PROFILE_PAGES = [
+  "Profile page 01",
+  "Profile page 02",
+];
+const FEED_PAGES = [
+  "Feed page 01",
+  "Feed page 02",
+  "Feed page 03",
+  "Feed page 04",
+  "Feed page 05",
+  "Feed page 06",
+  "Feed page 07",
+  "Feed page 08",
+  "Feed page 09",
+];
+
 
 const _MENU_STRINGS = [
   {
     'title': "Note",
-    'items': SIGN_UP_PAGES,
     'icon': Icons.event_note,
     'image': MainImagePath.image_sign_up
   },
-
   {
     'title': "Vogue",
-    'items': WALK_THROUGH_PAGES,
     'icon': Icons.photo_camera,
     'image': MainImagePath.image_walk_through
   },
   {
     'title': "Note",
-    'items': NAVIGATION_PAGES,
     'icon': Icons.alternate_email,
     'image': MainImagePath.image_navigation
-  }
+  },
+  {
+    'title': "Sign Up",
+    'icon': Icons.airplay,
+    'image': MainImagePath.image_sign_up,
+    'items': SIGN_UP_PAGES
+  },
+  {
+    'title': "Profile",
+    'icon': Icons.question_answer,
+    'image': MainImagePath.image_profile,
+    'items': PROFILE_PAGES
+  },
+  {
+    'title': "Feed",
+    'icon': Icons.location_city,
+    'image': MainImagePath.image_feed,
+    'items': FEED_PAGES
+  },
 ];
 
 const _MENU_COLORS = [

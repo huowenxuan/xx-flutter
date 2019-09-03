@@ -1,8 +1,3 @@
-///
-/// Created by NieBin on 18-12-14
-/// Github: https://github.com/nb312
-/// Email: niebin312@gmail.com
-///
 import "package:flutter/material.dart";
 import 'package:flutter_ui_nice/item/menu_stream.dart';
 import 'package:flutter_ui_nice/item/Menu.dart';
@@ -24,7 +19,7 @@ class HomePage extends StatelessWidget {
         expandedHeight: 150.0,
         flexibleSpace: FlexibleSpaceBar(
           title: Padding(
-            padding: EdgeInsets.only(top: 30, left: 75),
+            padding: EdgeInsets.only(top: 0, left: 70),
             child: Row(
               children: <Widget>[
                 Image.asset(
@@ -185,7 +180,11 @@ class HomePage extends StatelessWidget {
 
   Widget _gridItem(context, Menu menu, index) => InkWell(
         onTap: () {
-          _clickMenu(context, menu);
+          if (index == 0) {
+            Navigator.pushNamed(context, "NOTE_LIST");
+          } else {
+            _clickMenu(context, menu);
+          }
         },
         child: Stack(
           fit: StackFit.expand,
