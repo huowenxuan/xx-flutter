@@ -4,32 +4,31 @@ import 'package:flutter_ui_nice/item/Menu.dart';
 import 'package:flutter_ui_nice/const/images_const.dart';
 
 const SIGN_UP_PAGES = [
-  "Sign up page 01",
-  "Sign up page 02",
-  "Sign up page 03",
-  "Sign up page 04",
-  "Sign up page 05",
-  "Sign up page 06",
-  "Sign up page 07",
-  "Sign up page 08",
-  "Sign up page 09",
-  "Sign up page 10",
-  "Sign up page 11",
+  'SIGN_UP_PAGES[0]',
+  'SIGN_UP_PAGES[2]',
+  'SIGN_UP_PAGES[3]',
+  'SIGN_UP_PAGES[4]',
+  'SIGN_UP_PAGES[5]',
+  'SIGN_UP_PAGES[6]',
+  'SIGN_UP_PAGES[7]',
+  'SIGN_UP_PAGES[8]',
+  'SIGN_UP_PAGES[9]',
+  'SIGN_UP_PAGES[10]'
 ];
 const PROFILE_PAGES = [
-  "Profile page 01",
-  "Profile page 02",
+  'PROFILE_PAGES[0]',
+  'PROFILE_PAGES[1]'
 ];
 const FEED_PAGES = [
-  "Feed page 01",
-  "Feed page 02",
-  "Feed page 03",
-  "Feed page 04",
-  "Feed page 05",
-  "Feed page 06",
-  "Feed page 07",
-  "Feed page 08",
-  "Feed page 09",
+  'FEED_PAGES[0]',
+  'FEED_PAGES[1]',
+  'FEED_PAGES[2]',
+  'FEED_PAGES[3]',
+  'FEED_PAGES[4]',
+  'FEED_PAGES[5]',
+  'FEED_PAGES[6]',
+  'FEED_PAGES[7]',
+  'FEED_PAGES[8]',
 ];
 
 

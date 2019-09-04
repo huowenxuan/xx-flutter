@@ -6,7 +6,7 @@ import 'package:flutter_ui_nice/util/SizeUtil.dart';
 import 'package:flutter_ui_nice/util/GradientUtil.dart';
 import 'feed_const.dart';
 import 'package:flutter_ui_nice/const/color_const.dart';
-import 'dart:io';
+import 'package:flutter_ui_nice/util/Request.dart';
 
 class NoteListPage extends StatefulWidget {
   @override
@@ -14,25 +14,7 @@ class NoteListPage extends StatefulWidget {
 }
 
 class _FeedState extends State<NoteListPage> {
-  get() async {
-    var url = 'http://huowenxuan.zicp.vip/notes';
-    var httpClient = new HttpClient();
-
-    try {
-      var request = await httpClient.getUrl(Uri.parse(url));
-      var response = await request.close();
-      if (response.statusCode == HttpStatus.ok) {
-        var json = await response.transform(utf8.decoder).join();
-        var data = jsonDecode(json);
-        print(data);
-      } else {
-      }
-    } catch (exception) {
-    }
-
-    setState(() {
-    });
-  }
+  var data = [];
 
   Widget _textBack(content,
           {color = TEXT_BLACK_LIGHT,
@@ -201,6 +183,20 @@ class _FeedState extends State<NoteListPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.initData();
+  }
+
+  initData() async {
+    var data = await Request.get('http://huowenxuan.zicp.vip/notes');
+    data = data['data'];
+    setState(() {
+      data = data;
+    });
   }
 }
 

@@ -1,84 +1,19 @@
-///
-/// Created by NieBin on 2018/12/26
-/// Github: https://github.com/nb312
-/// Email: niebin312@gmail.com
-///
 import "package:flutter/material.dart";
 import 'top_title.dart';
 import 'package:flutter_ui_nice/util/SizeUtil.dart';
 import 'package:flutter_ui_nice/util/GradientUtil.dart';
 import 'feed_const.dart';
 import 'package:flutter_ui_nice/const/color_const.dart';
+import 'package:flutter_ui_nice/util/Request.dart';
 
-const posts2 = [
-  {
-    "header": FeedImage.feed13_header1,
-    "name": "Katherine Farmer",
-    "time": "1 hour ago",
-    "desc": "Decorate For Less With Art Posters",
-    "like": "123",
-    "chat": "67",
-    "share": "12",
-    "images": [
-      FeedImage.feed13_pic1,
-      FeedImage.feed13_pic2,
-      FeedImage.feed13_pic3,
-      FeedImage.feed13_pic4,
-    ]
-  },
-  {
-    "header": FeedImage.feed13_header2,
-    "name": "Tyler Guerrero",
-    "time": "2 hour ago",
-    "desc": "",
-    "like": "123",
-    "chat": "67",
-    "share": "12",
-    "images": [
-      FeedImage.feed13_pic1,
-      FeedImage.feed13_pic2,
-      FeedImage.feed13_pic3,
-      FeedImage.feed13_pic4,
-    ]
-  },
-  {
-    "header": FeedImage.feed13_header3,
-    "name": "Hettie Nguyen",
-    "time": "3 hour ago",
-    "desc": "Decorate For Less With Art Posters",
-    "like": "123",
-    "chat": "67",
-    "share": "12",
-    "images": [
-      FeedImage.feed13_pic1,
-      FeedImage.feed13_pic2,
-      FeedImage.feed13_pic3,
-      FeedImage.feed13_pic4,
-    ]
-  },
-  {
-    "header": FeedImage.feed13_header1,
-    "name": "Katherine Farmer",
-    "time": "4 hour ago",
-    "desc": "",
-    "like": "123",
-    "chat": "67",
-    "share": "12",
-    "images": [
-      FeedImage.feed13_pic1,
-      FeedImage.feed13_pic2,
-      FeedImage.feed13_pic3,
-      FeedImage.feed13_pic4,
-    ]
-  }
-];
-
-class FeedPageThirteen extends StatefulWidget {
+class VogueListPage extends StatefulWidget {
   @override
   _FeedState createState() => _FeedState();
 }
 
-class _FeedState extends State<FeedPageThirteen> {
+class _FeedState extends State<VogueListPage> {
+  var _data = [];
+
   Widget _textBack(content,
           {color = TEXT_BLACK_LIGHT,
           size = TEXT_SMALL_2_SIZE,
@@ -172,8 +107,9 @@ class _FeedState extends State<FeedPageThirteen> {
                 left: SizeUtil.getAxisX(20.0),
                 right: SizeUtil.getAxisX(20.0),
               ),
-              child: Image.asset(
+              child: Image.network(
                 img,
+                fit:  BoxFit.fitWidth,
                 width: SizeUtil.getAxisBoth(170.0),
                 height: SizeUtil.getAxisBoth(170.0),
               ),
@@ -203,7 +139,7 @@ class _FeedState extends State<FeedPageThirteen> {
               bottom: SizeUtil.getAxisY(45.0),
               child: _itemAction(item),
             ),
-            item["desc"].toString().isEmpty
+            !item["desc"].toString().isEmpty
                 ? Container(
                     margin: EdgeInsets.only(top: SizeUtil.getAxisY(20.0)),
                     alignment: AlignmentDirectional.center,
@@ -221,10 +157,10 @@ class _FeedState extends State<FeedPageThirteen> {
 
   Widget _body() => ListView.builder(
         itemBuilder: (context, index) {
-          var item = posts2[index % posts2.length];
+          var item = _data[index % _data.length];
           return _listItem(item);
         },
-        itemCount: posts2.length,
+        itemCount: _data.length,
         padding: EdgeInsets.only(top: 0.1),
       );
 
@@ -245,5 +181,114 @@ class _FeedState extends State<FeedPageThirteen> {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.initData();
+  }
+
+  initData() async {
+    var data = await Request.get('http://huowenxuan.zicp.vip/vogues');
+    data = data['data'];
+    print(data);
+
+    for (var i = 0; i < data.length; i++) {
+      var item = data[i];
+      var header = '';
+      switch (i % 3) {
+        case 0:
+          header = FeedImage.feed13_header1;
+          break;
+        case 1:
+          header = FeedImage.feed13_header2;
+          break;
+        case 2:
+          header = FeedImage.feed13_header3;
+          break;
+      }
+      var imageUrls = [];
+      for (var image in item['images']) {
+        imageUrls.add(image['thumbnails']);
+      }
+      data[i] = {
+        'header': header,
+        'name': item['title'],
+        'desc': item['category'],
+        "time": "1 hour ago",
+        "like": "123",
+        "chat": "67",
+        "share": "12",
+        'images': imageUrls
+      };
+    }
+
+    const vogues = [
+      {
+        "header": FeedImage.feed13_header1,
+        "name": "Katherine Farmer",
+        "desc": "Decorate For Less With Art Posters",
+        "time": "1 hour ago",
+        "like": "123",
+        "chat": "67",
+        "share": "12",
+        "images": [
+          FeedImage.feed13_pic1,
+          FeedImage.feed13_pic2,
+          FeedImage.feed13_pic3,
+          FeedImage.feed13_pic4,
+        ]
+      },
+      {
+        "header": FeedImage.feed13_header2,
+        "name": "Tyler Guerrero",
+        "time": "2 hour ago",
+        "desc": "",
+        "like": "123",
+        "chat": "67",
+        "share": "12",
+        "images": [
+          FeedImage.feed13_pic1,
+          FeedImage.feed13_pic2,
+          FeedImage.feed13_pic3,
+          FeedImage.feed13_pic4,
+        ]
+      },
+      {
+        "header": FeedImage.feed13_header3,
+        "name": "Hettie Nguyen",
+        "time": "3 hour ago",
+        "desc": "Decorate For Less With Art Posters",
+        "like": "123",
+        "chat": "67",
+        "share": "12",
+        "images": [
+          FeedImage.feed13_pic1,
+          FeedImage.feed13_pic2,
+          FeedImage.feed13_pic3,
+          FeedImage.feed13_pic4,
+        ]
+      },
+      {
+        "header": FeedImage.feed13_header1,
+        "name": "Katherine Farmer",
+        "time": "4 hour ago",
+        "desc": "",
+        "like": "123",
+        "chat": "67",
+        "share": "12",
+        "images": [
+          FeedImage.feed13_pic1,
+          FeedImage.feed13_pic2,
+          FeedImage.feed13_pic3,
+          FeedImage.feed13_pic4,
+        ]
+      }
+    ];
+
+    setState(() {
+      _data = data;
+    });
   }
 }

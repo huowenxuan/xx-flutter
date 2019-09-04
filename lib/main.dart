@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_nice/page/note/NoteListPage.dart';
 import 'package:flutter_ui_nice/page/page_const.dart';
 import 'package:flutter/services.dart';
 
@@ -10,7 +9,6 @@ import "page/page_const.dart";
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
@@ -25,6 +23,7 @@ class MyApp extends StatelessWidget {
       home: HomePage(),
       routes: {
         'NOTE_LIST': (context) => NoteListPage(),
+        'VOGUE_LIST': (context) => VogueListPage(),
 
         //PROFILE pages
         'PROFILE_PAGES[0]': (context) => ProfilePageOne(),
@@ -50,6 +49,7 @@ class MyApp extends StatelessWidget {
         'FEED_PAGES[4]': (context) => FeedFivePage(),
         'FEED_PAGES[5]': (context) => FeedPageTen(),
         'FEED_PAGES[6]': (context) => FeedPageEleven(),
+        // VOGUE LIST 模仿
         'FEED_PAGES[7]': (context) => FeedPageTwelve(),
         // Note模仿
         'FEED_PAGES[8]': (context) => FeedPageThirteen(),

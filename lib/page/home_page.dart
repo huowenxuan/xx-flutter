@@ -180,10 +180,15 @@ class HomePage extends StatelessWidget {
 
   Widget _gridItem(context, Menu menu, index) => InkWell(
         onTap: () {
-          if (index == 0) {
-            Navigator.pushNamed(context, "NOTE_LIST");
-          } else {
-            _clickMenu(context, menu);
+          switch(index) {
+            case 0:
+              Navigator.pushNamed(context, "NOTE_LIST");
+              break;
+            case 1:
+              Navigator.pushNamed(context, "VOGUE_LIST");
+              break;
+            default:
+              _clickMenu(context, menu);
           }
         },
         child: Stack(

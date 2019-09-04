@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ui_nice/const/gradient_const.dart';
 import 'package:flutter_ui_nice/const/icons.dart';
-import 'package:flutter_ui_nice/const/size_const.dart';
 import 'package:flutter_ui_nice/page/signup/widgets/signup_arrow_button.dart';
 import 'dart:async';
-import 'package:google_places_picker/google_places_picker.dart';
 import 'package:intl/intl.dart';
 
 class SignPageSeven extends StatefulWidget {
@@ -18,7 +16,7 @@ class _SignPageSevenState extends State<SignPageSeven> {
   List<String> _states = ["Hessen", "Istanbul", "Barcelona"];
   String _currentCountry = "Germany";
   String _currentState = "Hessen";
-  Place _place;
+  var _place;
   int widgetIndex = 0;
   PageController _pageController;
   bool _isSelected = true;
@@ -58,15 +56,6 @@ class _SignPageSevenState extends State<SignPageSeven> {
       setState(
         () => _currentDate = DateFormat('M/d/y').format(picked),
       );
-  }
-
-  Future _selectPlace(BuildContext context) async {
-    try {
-      Place _picker = await PluginGooglePlacePicker.showPlacePicker();
-      setState(() {
-        _place = _picker;
-      });
-    } catch (e) {}
   }
 
   @override
@@ -288,7 +277,6 @@ class _SignPageSevenState extends State<SignPageSeven> {
         Padding(
           padding: const EdgeInsets.only(top: 15.0, bottom: 20),
           child: InkWell(
-            onTap: () => _selectPlace(context),
             child: Text(
               _place != null ? _place.name : 'Ostendstr. 27',
               style: TextStyle(
@@ -321,7 +309,6 @@ class _SignPageSevenState extends State<SignPageSeven> {
         Padding(
           padding: const EdgeInsets.only(top: 15.0, bottom: 20),
           child: InkWell(
-            onTap: () => _selectPlace(context),
             child: Text(
               _place != null ? _place.name : 'Frankfurt am Main',
               style: TextStyle(

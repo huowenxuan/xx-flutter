@@ -3,7 +3,6 @@ import "package:flutter/material.dart";
 import '../../const/gradient_const.dart';
 import 'widgets/date_picker.dart';
 import 'widgets/gender_picker.dart';
-import 'widgets/location_picker.dart';
 import 'widgets/signup_apbar.dart';
 import 'widgets/signup_profile_image_picker.dart';
 import 'widgets/signup_button.dart';
@@ -28,7 +27,6 @@ class SignPageTwo extends StatelessWidget {
             ),
             DatePicker(),
             GenderPicker(),
-            LocationPicker(),
             Container(
                 margin: EdgeInsets.only(top: 32.0),
                 child: Center(child: signupButton('NEXT')))
