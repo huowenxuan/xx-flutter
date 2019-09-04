@@ -47,7 +47,7 @@ class _FeedState extends State<VogueListPage> {
                 SizedBox(
                   height: SizeUtil.getAxisY(13.0),
                 ),
-                _textBack(item["time"], size: TEXT_NORMAL_SIZE),
+                _textBack(item["desc"], size: TEXT_NORMAL_SIZE),
               ],
             )
           ],
@@ -102,33 +102,35 @@ class _FeedState extends State<VogueListPage> {
         child: ListView.builder(
           itemBuilder: (context, index) {
             var img = item["images"][index];
+            double width = 60;
             return Container(
-              margin: EdgeInsets.only(
-                left: SizeUtil.getAxisX(20.0),
-                right: SizeUtil.getAxisX(20.0),
-              ),
-              child: Image.network(
-                img,
-                fit:  BoxFit.fitWidth,
-                width: SizeUtil.getAxisBoth(170.0),
-                height: SizeUtil.getAxisBoth(170.0),
-              ),
-            );
+                margin: EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    img,
+                    fit: BoxFit.fill,
+                    height: width / 0.5,
+                    width: width,
+                  ),
+                ));
           },
           itemCount: item["images"].length,
           scrollDirection: Axis.horizontal,
         ),
       );
 
-  Widget _listItem(item) => Container(
+  Widget _listItem(item, index) => Container(
         constraints: BoxConstraints.expand(
-          height: SizeUtil.getAxisY(
-              item["desc"].toString().isNotEmpty ? 350.0 : 469.0),
+          height: SizeUtil.getAxisY(item["images"].length > 0 ? 440 : 200),
         ),
         margin: EdgeInsets.only(top: SizeUtil.getAxisY(40.0)),
         child: Stack(
           children: <Widget>[
-            _backCard(item["desc"].toString().isEmpty),
+            _backCard(index % 2 == 0),
             Positioned(
               left: SizeUtil.getAxisX(25.0),
               top: SizeUtil.getAxisY(46.0),
@@ -139,18 +141,11 @@ class _FeedState extends State<VogueListPage> {
               bottom: SizeUtil.getAxisY(45.0),
               child: _itemAction(item),
             ),
-            !item["desc"].toString().isEmpty
-                ? Container(
-                    margin: EdgeInsets.only(top: SizeUtil.getAxisY(20.0)),
-                    alignment: AlignmentDirectional.center,
-                    child: _itemImages(item),
-                  )
-                : Positioned(
-                    top: SizeUtil.getAxisY(156.0),
-                    left: SizeUtil.getAxisX(160.0),
-                    height: SizeUtil.getAxisY(70.0),
-                    child: _itemText(item),
-                  ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              alignment: AlignmentDirectional.center,
+              child: _itemImages(item),
+            )
           ],
         ),
       );
@@ -158,7 +153,7 @@ class _FeedState extends State<VogueListPage> {
   Widget _body() => ListView.builder(
         itemBuilder: (context, index) {
           var item = _data[index % _data.length];
-          return _listItem(item);
+          return _listItem(item, index);
         },
         itemCount: _data.length,
         padding: EdgeInsets.only(top: 0.1),
@@ -216,7 +211,6 @@ class _FeedState extends State<VogueListPage> {
         'header': header,
         'name': item['title'],
         'desc': item['category'],
-        "time": "1 hour ago",
         "like": "123",
         "chat": "67",
         "share": "12",
@@ -229,7 +223,6 @@ class _FeedState extends State<VogueListPage> {
         "header": FeedImage.feed13_header1,
         "name": "Katherine Farmer",
         "desc": "Decorate For Less With Art Posters",
-        "time": "1 hour ago",
         "like": "123",
         "chat": "67",
         "share": "12",
@@ -243,7 +236,6 @@ class _FeedState extends State<VogueListPage> {
       {
         "header": FeedImage.feed13_header2,
         "name": "Tyler Guerrero",
-        "time": "2 hour ago",
         "desc": "",
         "like": "123",
         "chat": "67",
@@ -258,7 +250,6 @@ class _FeedState extends State<VogueListPage> {
       {
         "header": FeedImage.feed13_header3,
         "name": "Hettie Nguyen",
-        "time": "3 hour ago",
         "desc": "Decorate For Less With Art Posters",
         "like": "123",
         "chat": "67",
@@ -273,7 +264,6 @@ class _FeedState extends State<VogueListPage> {
       {
         "header": FeedImage.feed13_header1,
         "name": "Katherine Farmer",
-        "time": "4 hour ago",
         "desc": "",
         "like": "123",
         "chat": "67",
