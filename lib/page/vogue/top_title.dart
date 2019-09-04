@@ -9,12 +9,15 @@ import 'package:flutter_ui_nice/const/color_const.dart';
 import 'package:flutter_ui_nice/util/SizeUtil.dart';
 
 class TopTitleBar extends StatelessWidget {
-  TopTitleBar(
-      {this.leftImage = FeedImage.more_circle,
-      this.rightImage = FeedImage.search_circle});
+  TopTitleBar({
+    this.leftImage = FeedImage.more_circle,
+    this.rightImage = FeedImage.search_circle,
+    this.title = 'FEED',
+  });
 
   final String leftImage;
   final String rightImage;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +36,7 @@ class TopTitleBar extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(top: SizeUtil.getAxisY(30.0)),
               child: Text(
-                FeedStringConst.FEED_NAME,
+                title,
                 style: TextStyle(
                     color: TEXT_BLACK,
                     fontSize: SizeUtil.getAxisBoth(TEXT_NORMAL_2_SIZE),
