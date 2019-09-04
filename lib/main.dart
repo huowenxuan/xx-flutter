@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'NOTE_LIST': (context) => NoteListPage(),
         'VOGUE_LIST': (context) => VogueListPage(),
+        'VOGUE_DETAIL': (context) => VogueDetailPage(),
 
         //PROFILE pages
         'PROFILE_PAGES[0]': (context) => ProfilePageOne(),

@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import 'package:flutter_ui_nice/page/page_const.dart';
 import 'top_title.dart';
 import 'package:flutter_ui_nice/util/SizeUtil.dart';
 import 'package:flutter_ui_nice/util/GradientUtil.dart';
@@ -7,13 +6,19 @@ import 'feed_const.dart';
 import 'package:flutter_ui_nice/const/color_const.dart';
 import 'package:flutter_ui_nice/util/Request.dart';
 
-class VogueListPage extends StatefulWidget {
+class VogueDetailPage extends StatefulWidget {
+  final String id; // 用来储存传递过来的值
+  // 类的构造器，用来接收传递的值
+  VogueDetailPage({Key key, this.id}) : super(key: key);
+
   @override
-  _FeedState createState() => _FeedState();
+  _FeedState createState() => new _FeedState();
 }
 
-class _FeedState extends State<VogueListPage> {
+class _FeedState extends State<VogueDetailPage> {
   var _data = [];
+  var _arguments;
+  String _id;
 
   Widget _textBack(content,
           {color = TEXT_BLACK_LIGHT,
@@ -93,6 +98,10 @@ class _FeedState extends State<VogueListPage> {
             left: SizeUtil.getAxisX(80.0), right: SizeUtil.getAxisX(40.0)),
       );
 
+  Widget _itemText(item) => Container(
+        child: _textBack(item["desc"], size: TEXT_SMALL_3_SIZE),
+      );
+
   Widget _itemImages(item) => Container(
         alignment: AlignmentDirectional.center,
         constraints: BoxConstraints.expand(height: SizeUtil.getAxisY(270.0)),
@@ -119,25 +128,10 @@ class _FeedState extends State<VogueListPage> {
       );
 
   Widget _listItem(item, index) => Container(
-      constraints: BoxConstraints.expand(
-        height: SizeUtil.getAxisY(item["images"].length > 0 ? 550 : 200),
-      ),
-      margin: EdgeInsets.only(top: 10, bottom: 10),
-      child: FlatButton(
-        padding: EdgeInsets.only(left: 0, right: 0),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => VogueDetailPage(
-                id: item['id'],
-              ),
-            ),
-          );
-//          Navigator.pushNamed(context, 'VOGUE_DETAIL', arguments: {
-//            'id': item['id']
-//          });
-        },
+        constraints: BoxConstraints.expand(
+          height: SizeUtil.getAxisY(item["images"].length > 0 ? 550 : 200),
+        ),
+        margin: EdgeInsets.only(top: 10, bottom: 10),
         child: Stack(
           children: <Widget>[
             _backCard(index % 2 == 0),
@@ -158,7 +152,7 @@ class _FeedState extends State<VogueListPage> {
             )
           ],
         ),
-      ));
+      );
 
   Widget _body() => ListView.builder(
         itemBuilder: (context, index) {
@@ -171,6 +165,9 @@ class _FeedState extends State<VogueListPage> {
 
   @override
   Widget build(BuildContext context) {
+    _arguments = ModalRoute.of(context).settings.arguments;
+    _id = _arguments['id'];
+    print(_id);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(gradient: GradientUtil.yellowGreen()),
@@ -195,41 +192,14 @@ class _FeedState extends State<VogueListPage> {
   }
 
   initData() async {
-    var data = await Request.get('http://huowenxuan.zicp.vip/vogues');
-    data = data['data'];
-
-    for (var i = 0; i < data.length; i++) {
-      var item = data[i];
-      var header = '';
-      switch (i % 3) {
-        case 0:
-          header = FeedImage.feed13_header1;
-          break;
-        case 1:
-          header = FeedImage.feed13_header2;
-          break;
-        case 2:
-          header = FeedImage.feed13_header3;
-          break;
-      }
-      var imageUrls = [];
-      for (var image in item['images']) {
-        imageUrls.add(image['thumbnails']);
-      }
-      data[i] = {
-        'id': item['id'],
-        'header': header,
-        'name': item['title'],
-        'desc': item['category'],
-        "like": "123",
-        "chat": "67",
-        "share": "12",
-        'images': imageUrls
-      };
-    }
-
-    setState(() {
-      _data = data;
-    });
+    print(widget.id);
+//    String url = 'http://huowenxuan.zicp.vip/vogue/' + widget.id;
+//    var data = await Request.get(url);
+//    data = data['data'];
+//    print(data);
+//
+//    setState(() {
+//      _data = data;
+//    });
   }
 }
