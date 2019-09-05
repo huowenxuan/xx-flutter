@@ -19,7 +19,7 @@ class _FeedState extends State<NoteListPage> {
   Widget _textBack(content,
           {color = TEXT_BLACK_LIGHT, size = 12, isBold = false}) =>
       Text(
-        content,
+        content.toString(),
         maxLines: 3,
         overflow: TextOverflow.visible,
         style: TextStyle(
@@ -41,7 +41,7 @@ class _FeedState extends State<NoteListPage> {
             SizedBox(
               width: SizeUtil.getAxisX(51.0),
             ),
-            _textBack(item["time"], size: 14),
+            _textBack(item['end'], size: 14),
           ],
         ),
       );
@@ -53,24 +53,69 @@ class _FeedState extends State<NoteListPage> {
         children: <Widget>[
           _actionChild(Icons.format_size, item["chars"], null),
           SizedBox(width: SizeUtil.getAxisX(75.0)),
-          _actionChild(Icons.edit, "", null),
+          _actionChild(Icons.edit, "", () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NoteEditPage(data: item),
+              ),
+            );
+          }),
           SizedBox(width: SizeUtil.getAxisX(75.0)),
-          _actionChild(Icons.restore_from_trash, "", (){
-            print('a');
+          _actionChild(Icons.restore_from_trash, "", () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return new AlertDialog(
+                    title: new Text("Delete?"),
+                    actions: <Widget>[
+                      new FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'Yes',
+                          style: new TextStyle(
+                            color: Colors.red
+                          )
+                        ),
+                      ),
+                      new FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child:  Text(
+                            'No',
+                            style: new TextStyle(
+                                color: Colors.black
+                            )
+                        ),
+                      ),
+                    ],
+                  );
+                });
           }),
         ],
       );
 
-  Widget _actionChild(icon, value, onPress) => Row(
-    children: <Widget>[
-      Icon(
-        icon,
-        color: TEXT_BLACK_LIGHT,
-        size: SizeUtil.getAxisBoth(30.0),
+  Widget _actionChild(icon, value, onPress) => Container(
+    width: 70,
+    height: 25,
+    child: FlatButton(
+      padding: EdgeInsets.all(0),
+      onPressed: onPress,
+      child: Row(
+        children: <Widget>[
+          Icon(
+            icon,
+            color: TEXT_BLACK_LIGHT,
+            size: SizeUtil.getAxisBoth(30.0),
+          ),
+          SizedBox(width: SizeUtil.getAxisX(20.0)),
+          _textBack(value),
+        ],
       ),
-      SizedBox(width: SizeUtil.getAxisX(20.0)),
-      _textBack(value),
-    ],
+    ),
   );
 
   Widget _listItem(item, index) => Container(
@@ -82,9 +127,7 @@ class _FeedState extends State<NoteListPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MarkdownPage(
-                    data: item
-                  ),
+                  builder: (context) => MarkdownPage(data: item),
                 ),
               );
             },
@@ -182,8 +225,8 @@ class _FeedState extends State<NoteListPage> {
       data[i] = {
         'id': item['id'],
         'header': header,
-        'time':
-            DateUtil.formatDateMs(item['end'], format: "yyyy/MM/dd HH:mm:ss"),
+        'end': item['end'],
+//        'end': DateUtil.formatDateMs(item['end'], format: "yyyy/MM/dd HH:mm:ss"),
         'text': item['text'],
         "chars": item['text'].length.toString(),
         "chat": "67",

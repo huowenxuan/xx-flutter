@@ -29,7 +29,7 @@ class MyWidgetState extends State<MarkdownPage> {
         child: Column(
           children: <Widget>[
             TopTitleBar(
-              title: "",
+              title: "REVIEW",
               leftImage: OldFeedImage.more_circle,
               rightImage: OldFeedImage.feed_add,
               rightPress: () {

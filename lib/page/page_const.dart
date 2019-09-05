@@ -2,6 +2,7 @@ export 'note/NoteListPage.dart';
 export 'note/MarkdownPage.dart';
 export 'vogue/VogueListPage.dart';
 export 'vogue/VogueDetailPage.dart';
+export 'note/NoteEditPage.dart';
 
 export "origin_home_page.dart";
 export 'home_page.dart';

@@ -50,4 +50,13 @@ class Request {
       print(e);
     }
   }
+
+  static put(url, data) async {
+    try {
+      Response response = await Dio().put(url, data: data);
+      return response.data;
+    } catch (e) {
+      print(e);
+    }
+  }
 }

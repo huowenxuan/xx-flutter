@@ -36,8 +36,12 @@ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
     flutter build macos
     Xcode -> Archive -> Distribute App -> Copy App
 
-### 错误
-#### run -d macOS 时报错 PhaseScriptExecution [CP]\ Embed\ Pods\ Frameworks
+## 错误
+### run -d macOS 时报错 PhaseScriptExecution [CP]\ Embed\ Pods\ Frameworks
 cd macos
 pod install
 
+
+## TODO
+1. 时间选择
+2. localStorage + take photos + onScroll
