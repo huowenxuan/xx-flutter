@@ -21,6 +21,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   image_picker: ^0.4.10
   intl: ^0.15.7
+  dio: ^2.1.16 # 网络请求
+  image_save: ^1.0.1
 
 dev_dependencies:
   flutter_test:

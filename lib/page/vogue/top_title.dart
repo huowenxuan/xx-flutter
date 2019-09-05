@@ -9,15 +9,18 @@ import 'package:flutter_ui_nice/const/color_const.dart';
 import 'package:flutter_ui_nice/util/SizeUtil.dart';
 
 class TopTitleBar extends StatelessWidget {
-  TopTitleBar({
-    this.leftImage = FeedImage.more_circle,
-    this.rightImage = FeedImage.search_circle,
-    this.title = 'FEED',
-  });
+  TopTitleBar(
+      {this.leftImage = FeedImage.more_circle,
+      this.rightImage = FeedImage.search_circle,
+      this.title = 'FEED',
+      this.leftPress,
+      this.rightPress});
 
   final String leftImage;
   final String rightImage;
   final String title;
+  final Function leftPress;
+  final Function rightPress;
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +53,26 @@ class TopTitleBar extends StatelessWidget {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Image.asset(leftImage,
-                      width: SizeUtil.getAxisY(CIRCLE_BUTTON_HEIGHT),
-                      height: SizeUtil.getAxisY(CIRCLE_BUTTON_HEIGHT)),
-                  Image.asset(rightImage,
-                      width: SizeUtil.getAxisY(CIRCLE_BUTTON_HEIGHT),
-                      height: SizeUtil.getAxisY(CIRCLE_BUTTON_HEIGHT))
+                  IconButton(
+                    onPressed: leftPress != null
+                        ? leftPress
+                        : () {
+                            Navigator.pop(context);
+                          },
+                    padding: EdgeInsets.all(0),
+                    icon: Image.asset(
+                      leftImage,
+                      width: 40,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: rightPress,
+                    icon: Image.asset(
+                      rightImage,
+                      width: 40,
+                    ),
+                    padding: EdgeInsets.all(0),
+                  ),
                 ]),
           )
         ],

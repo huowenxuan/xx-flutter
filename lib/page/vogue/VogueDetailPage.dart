@@ -5,6 +5,9 @@ import 'package:flutter_ui_nice/util/GradientUtil.dart';
 import 'feed_const.dart';
 import 'package:flutter_ui_nice/const/color_const.dart';
 import 'package:flutter_ui_nice/util/Request.dart';
+import 'package:image_save/image_save.dart';
+import 'package:dio/dio.dart';
+import 'dart:typed_data';
 
 class VogueDetailPage extends StatefulWidget {
   final String id; // 用来储存传递过来的值
@@ -19,6 +22,12 @@ class _FeedState extends State<VogueDetailPage> {
   var _data = {};
   var _images = [];
   var _screenWeight;
+
+  _saveImage(url) async {
+    var response = await Dio().get(url, options: Options(responseType: ResponseType.bytes));
+    final result = await ImageSave.saveImage("jpg", Uint8List.fromList(response.data));
+    print(result);
+  }
 
   Widget _itemImages(item) => Container(
         alignment: AlignmentDirectional.center,
@@ -43,6 +52,7 @@ class _FeedState extends State<VogueDetailPage> {
                       child: FlatButton(
                         onPressed: (){
                           var downloadUrl = item[index]['url'];
+                          _saveImage(downloadUrl);
                           print(downloadUrl);
                         },
                         padding: EdgeInsets.all(0),
@@ -88,7 +98,7 @@ class _FeedState extends State<VogueDetailPage> {
   @override
   Widget build(BuildContext context) {
     _screenWeight = MediaQuery.of(context).size.width;
-    String title = _data['title'] != null ? _data['title'] : 'TITLE';
+    String title = _data['title'] != null ? _data['title'] : '';
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(gradient: GradientUtil.yellowGreen()),
@@ -96,8 +106,6 @@ class _FeedState extends State<VogueDetailPage> {
           children: <Widget>[
             TopTitleBar(
               title: title,
-              leftImage: FeedImage.feed_add,
-              rightImage: '',
             ),
             Expanded(
               child: _body(),
