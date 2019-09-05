@@ -1,12 +1,12 @@
-import 'dart:convert';
-
 import "package:flutter/material.dart";
-import 'top_title.dart';
 import 'package:flutter_ui_nice/util/SizeUtil.dart';
 import 'package:flutter_ui_nice/util/GradientUtil.dart';
 import 'package:flutter_ui_nice/const/color_const.dart';
 import 'package:flutter_ui_nice/util/Request.dart';
 import 'package:flutter_ui_nice/const/images_const.dart';
+import 'package:flutter_ui_nice/component/TopTitleBar.dart';
+import 'package:flustars/flustars.dart';
+import 'package:flutter_ui_nice/page/page_const.dart';
 
 class NoteListPage extends StatefulWidget {
   @override
@@ -14,17 +14,17 @@ class NoteListPage extends StatefulWidget {
 }
 
 class _FeedState extends State<NoteListPage> {
-  var data = [];
+  var _data = [];
 
   Widget _textBack(content,
-          {color = TEXT_BLACK_LIGHT,
-          size = 22,
-          isBold = false}) =>
+          {color = TEXT_BLACK_LIGHT, size = 12, isBold = false}) =>
       Text(
         content,
+        maxLines: 3,
+        overflow: TextOverflow.visible,
         style: TextStyle(
             color: color,
-            fontSize: SizeUtil.getAxisBoth(size),
+            fontSize: size + .0,
             fontWeight: isBold ? FontWeight.w700 : null),
       );
 
@@ -41,17 +41,7 @@ class _FeedState extends State<NoteListPage> {
             SizedBox(
               width: SizeUtil.getAxisX(51.0),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                _textBack(item["name"], size: 24, isBold: true),
-                SizedBox(
-                  height: SizeUtil.getAxisY(13.0),
-                ),
-                _textBack(item["time"], size: 26),
-              ],
-            )
+            _textBack(item["time"], size: 14),
           ],
         ),
       );
@@ -61,11 +51,11 @@ class _FeedState extends State<NoteListPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          _actionChild(Icons.favorite_border, item["like"]),
+          _actionChild(Icons.format_size, item["chars"]),
           SizedBox(width: SizeUtil.getAxisX(75.0)),
-          _actionChild(Icons.chat, item["chat"]),
+          _actionChild(Icons.edit, ""),
           SizedBox(width: SizeUtil.getAxisX(75.0)),
-          _actionChild(Icons.share, item["share"]),
+          _actionChild(Icons.restore_from_trash, ""),
         ],
       );
 
@@ -81,87 +71,64 @@ class _FeedState extends State<NoteListPage> {
         ],
       );
 
-  Widget _backCard(isEmpty) => Container(
-        decoration: BoxDecoration(
-            gradient: !isEmpty ? GradientUtil.red() : GradientUtil.blue(),
-            borderRadius: BorderRadius.circular(
-              SizeUtil.getAxisBoth(22.0),
-            ),
-            boxShadow: [
-              BoxShadow(color: Color(0x11000000), offset: Offset(0.1, 4.0))
-            ]),
-        margin: EdgeInsets.only(
-            left: SizeUtil.getAxisX(80.0), right: SizeUtil.getAxisX(40.0)),
-      );
-
-  Widget _itemText(item) => Container(
-        child: _textBack(item["desc"], size: 24),
-      );
-
-  Widget _itemImages(item) => Container(
-        alignment: AlignmentDirectional.center,
-        constraints: BoxConstraints.expand(height: SizeUtil.getAxisY(170.0)),
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            var img = item["images"][index];
-            return Container(
-              margin: EdgeInsets.only(
-                left: SizeUtil.getAxisX(20.0),
-                right: SizeUtil.getAxisX(20.0),
-              ),
-              child: Image.asset(
-                img,
-                width: SizeUtil.getAxisBoth(170.0),
-                height: SizeUtil.getAxisBoth(170.0),
-              ),
-            );
-          },
-          itemCount: item["images"].length,
-          scrollDirection: Axis.horizontal,
-        ),
-      );
-
-  Widget _listItem(item) => Container(
-        constraints: BoxConstraints.expand(
-          height: SizeUtil.getAxisY(
-              item["desc"].toString().isNotEmpty ? 350.0 : 469.0),
-        ),
+  Widget _listItem(item, index) => Container(
+        constraints: BoxConstraints.expand(height: 180),
         margin: EdgeInsets.only(top: SizeUtil.getAxisY(40.0)),
-        child: Stack(
-          children: <Widget>[
-            _backCard(item["desc"].toString().isEmpty),
-            Positioned(
-              left: SizeUtil.getAxisX(25.0),
-              top: SizeUtil.getAxisY(46.0),
-              child: _itemHeader(item),
-            ),
-            Positioned(
-              left: SizeUtil.getAxisX(162.0),
-              bottom: SizeUtil.getAxisY(45.0),
-              child: _itemAction(item),
-            ),
-            item["desc"].toString().isEmpty
-                ? Container(
-                    margin: EdgeInsets.only(top: SizeUtil.getAxisY(20.0)),
-                    alignment: AlignmentDirectional.center,
-                    child: _itemImages(item),
-                  )
-                : Positioned(
-                    top: SizeUtil.getAxisY(156.0),
-                    left: SizeUtil.getAxisX(160.0),
-                    height: SizeUtil.getAxisY(70.0),
-                    child: _itemText(item),
+        child: FlatButton(
+            padding: EdgeInsets.only(left: 0, right: 0),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MarkdownPage(
                   ),
-          ],
-        ),
+                ),
+              );
+            },
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                      gradient: index % 2 != 1
+                          ? GradientUtil.red()
+                          : GradientUtil.blue(),
+                      borderRadius: BorderRadius.circular(
+                        SizeUtil.getAxisBoth(22.0),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Color(0x11000000), offset: Offset(0.1, 4.0))
+                      ]),
+                  margin: EdgeInsets.only(
+                      left: SizeUtil.getAxisX(80.0),
+                      right: SizeUtil.getAxisX(40.0)),
+                ),
+                Positioned(
+                  left: SizeUtil.getAxisX(25.0),
+                  top: SizeUtil.getAxisY(46.0),
+                  child: _itemHeader(item),
+                ),
+                Positioned(
+                  left: SizeUtil.getAxisX(162.0),
+                  bottom: SizeUtil.getAxisY(45.0),
+                  child: _itemAction(item),
+                ),
+                Positioned(
+                  top: SizeUtil.getAxisY(156.0),
+                  left: SizeUtil.getAxisX(160.0),
+                  height: SizeUtil.getAxisY(70.0),
+                  child: _textBack(item['text'], size: 13),
+                ),
+              ],
+            )),
       );
 
   Widget _body() => ListView.builder(
         itemBuilder: (context, index) {
-          var item = posts[index % posts.length];
-          return _listItem(item);
+          var item = _data[index % _data.length];
+          return _listItem(item, index);
         },
-        itemCount: posts.length,
+        itemCount: _data.length,
         padding: EdgeInsets.only(top: 0.1),
       );
 
@@ -194,65 +161,35 @@ class _FeedState extends State<NoteListPage> {
   initData() async {
     var data = await Request.get('http://huowenxuan.zicp.vip/notes');
     data = data['data'];
+
+    for (var i = 0; i < data.length; i++) {
+      var item = data[i];
+      var header = '';
+      switch (i % 3) {
+        case 0:
+          header = OldFeedImage.feed13_header1;
+          break;
+        case 1:
+          header = OldFeedImage.feed13_header2;
+          break;
+        case 2:
+          header = OldFeedImage.feed13_header3;
+          break;
+      }
+      data[i] = {
+        'id': item['id'],
+        'header': header,
+        'time':
+            DateUtil.formatDateMs(item['end'], format: "yyyy/MM/dd HH:mm:ss"),
+        'text': item['text'],
+        "chars": item['text'].length.toString(),
+        "chat": "67",
+        "share": "12",
+      };
+    }
+
     setState(() {
-      data = data;
+      _data = data;
     });
   }
 }
-
-const posts = [
-  {
-    "header": OldFeedImage.feed13_header1,
-    "name": "Katherine Farmer",
-    "time": "1 hour ago",
-    "desc": "Decorate For Less With Art Posters",
-    "like": "123",
-    "chat": "67",
-    "share": "12",
-    "images": [
-      OldFeedImage.feed13_pic1,
-      OldFeedImage.feed13_pic2,
-      OldFeedImage.feed13_pic3,
-      OldFeedImage.feed13_pic4,
-    ]
-  },
-  {
-    "header": OldFeedImage.feed13_header2,
-    "name": "Tyler Guerrero",
-    "time": "2 hour ago",
-    "desc": "",
-    "like": "123",
-    "chat": "67",
-    "share": "12",
-    "images": [
-      OldFeedImage.feed13_pic1,
-      OldFeedImage.feed13_pic2,
-      OldFeedImage.feed13_pic3,
-      OldFeedImage.feed13_pic4,
-    ]
-  },
-  {
-    "header": OldFeedImage.feed13_header3,
-    "name": "Hettie Nguyen",
-    "time": "3 hour ago",
-    "desc": "Decorate For Less With Art Posters",
-    "like": "123",
-    "chat": "67",
-    "share": "12",
-    "images": [
-      OldFeedImage.feed13_pic1,
-      OldFeedImage.feed13_pic2,
-      OldFeedImage.feed13_pic3,
-      OldFeedImage.feed13_pic4,
-    ]
-  },
-  {
-    "header": OldFeedImage.feed13_header1,
-    "name": "Katherine Farmer",
-    "time": "4 hour ago",
-    "desc": "",
-    "like": "123",
-    "chat": "67",
-    "share": "12",
-  }
-];

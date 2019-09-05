@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         'NOTE_LIST': (context) => NoteListPage(),
         'VOGUE_LIST': (context) => VogueListPage(),
         'VOGUE_DETAIL': (context) => VogueDetailPage(),
+        'MARKDOWN': (context) => MarkdownPage(),
 
         //PROFILE pages
         'PROFILE_PAGES[0]': (context) => ProfilePageOne(),
