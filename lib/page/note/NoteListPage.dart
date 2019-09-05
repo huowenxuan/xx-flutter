@@ -4,9 +4,9 @@ import "package:flutter/material.dart";
 import 'top_title.dart';
 import 'package:flutter_ui_nice/util/SizeUtil.dart';
 import 'package:flutter_ui_nice/util/GradientUtil.dart';
-import 'feed_const.dart';
 import 'package:flutter_ui_nice/const/color_const.dart';
 import 'package:flutter_ui_nice/util/Request.dart';
+import 'package:flutter_ui_nice/const/images_const.dart';
 
 class NoteListPage extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class _FeedState extends State<NoteListPage> {
 
   Widget _textBack(content,
           {color = TEXT_BLACK_LIGHT,
-          size = TEXT_SMALL_2_SIZE,
+          size = 22,
           isBold = false}) =>
       Text(
         content,
@@ -45,11 +45,11 @@ class _FeedState extends State<NoteListPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _textBack(item["name"], size: TEXT_SMALL_3_SIZE, isBold: true),
+                _textBack(item["name"], size: 24, isBold: true),
                 SizedBox(
                   height: SizeUtil.getAxisY(13.0),
                 ),
-                _textBack(item["time"], size: TEXT_NORMAL_SIZE),
+                _textBack(item["time"], size: 26),
               ],
             )
           ],
@@ -95,7 +95,7 @@ class _FeedState extends State<NoteListPage> {
       );
 
   Widget _itemText(item) => Container(
-        child: _textBack(item["desc"], size: TEXT_SMALL_3_SIZE),
+        child: _textBack(item["desc"], size: 24),
       );
 
   Widget _itemImages(item) => Container(
@@ -173,8 +173,8 @@ class _FeedState extends State<NoteListPage> {
         child: Column(
           children: <Widget>[
             TopTitleBar(
-              leftImage: FeedImage.more_circle,
-              rightImage: FeedImage.feed_add,
+              leftImage: OldFeedImage.more_circle,
+              rightImage: OldFeedImage.feed_add,
             ),
             Expanded(
               child: _body(),
@@ -202,7 +202,7 @@ class _FeedState extends State<NoteListPage> {
 
 const posts = [
   {
-    "header": FeedImage.feed13_header1,
+    "header": OldFeedImage.feed13_header1,
     "name": "Katherine Farmer",
     "time": "1 hour ago",
     "desc": "Decorate For Less With Art Posters",
@@ -210,14 +210,14 @@ const posts = [
     "chat": "67",
     "share": "12",
     "images": [
-      FeedImage.feed13_pic1,
-      FeedImage.feed13_pic2,
-      FeedImage.feed13_pic3,
-      FeedImage.feed13_pic4,
+      OldFeedImage.feed13_pic1,
+      OldFeedImage.feed13_pic2,
+      OldFeedImage.feed13_pic3,
+      OldFeedImage.feed13_pic4,
     ]
   },
   {
-    "header": FeedImage.feed13_header2,
+    "header": OldFeedImage.feed13_header2,
     "name": "Tyler Guerrero",
     "time": "2 hour ago",
     "desc": "",
@@ -225,14 +225,14 @@ const posts = [
     "chat": "67",
     "share": "12",
     "images": [
-      FeedImage.feed13_pic1,
-      FeedImage.feed13_pic2,
-      FeedImage.feed13_pic3,
-      FeedImage.feed13_pic4,
+      OldFeedImage.feed13_pic1,
+      OldFeedImage.feed13_pic2,
+      OldFeedImage.feed13_pic3,
+      OldFeedImage.feed13_pic4,
     ]
   },
   {
-    "header": FeedImage.feed13_header3,
+    "header": OldFeedImage.feed13_header3,
     "name": "Hettie Nguyen",
     "time": "3 hour ago",
     "desc": "Decorate For Less With Art Posters",
@@ -240,25 +240,19 @@ const posts = [
     "chat": "67",
     "share": "12",
     "images": [
-      FeedImage.feed13_pic1,
-      FeedImage.feed13_pic2,
-      FeedImage.feed13_pic3,
-      FeedImage.feed13_pic4,
+      OldFeedImage.feed13_pic1,
+      OldFeedImage.feed13_pic2,
+      OldFeedImage.feed13_pic3,
+      OldFeedImage.feed13_pic4,
     ]
   },
   {
-    "header": FeedImage.feed13_header1,
+    "header": OldFeedImage.feed13_header1,
     "name": "Katherine Farmer",
     "time": "4 hour ago",
     "desc": "",
     "like": "123",
     "chat": "67",
     "share": "12",
-    "images": [
-      FeedImage.feed13_pic1,
-      FeedImage.feed13_pic2,
-      FeedImage.feed13_pic3,
-      FeedImage.feed13_pic4,
-    ]
   }
 ];

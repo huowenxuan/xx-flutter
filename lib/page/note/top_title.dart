@@ -4,14 +4,14 @@
 /// Email: niebin312@gmail.com
 ///
 import "package:flutter/material.dart";
-import 'feed_const.dart';
+import 'package:flutter_ui_nice/const/images_const.dart';
 import 'package:flutter_ui_nice/const/color_const.dart';
 import 'package:flutter_ui_nice/util/SizeUtil.dart';
 
 class TopTitleBar extends StatelessWidget {
   TopTitleBar(
-      {this.leftImage = FeedImage.more_circle,
-      this.rightImage = FeedImage.search_circle});
+      {this.leftImage = OldFeedImage.more_circle,
+      this.rightImage = OldFeedImage.search_circle});
 
   final String leftImage;
   final String rightImage;
@@ -20,12 +20,12 @@ class TopTitleBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints:
-          BoxConstraints.expand(height: SizeUtil.getAxisY(TOP_BAR_HEIGHT)),
+          BoxConstraints.expand(height: SizeUtil.getAxisY(152)),
       child: Stack(
         children: <Widget>[
           Container(
             constraints: BoxConstraints.expand(
-                height: SizeUtil.getAxisY(TOP_BAR_GRADIENT_HEIGHT)),
+                height: SizeUtil.getAxisY(133)),
             decoration:
                 BoxDecoration(gradient: LinearGradient(colors: [YELLOW, BLUE])),
           ),
@@ -33,10 +33,10 @@ class TopTitleBar extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(top: SizeUtil.getAxisY(30.0)),
               child: Text(
-                FeedStringConst.FEED_NAME,
+                'FEED',
                 style: TextStyle(
                     color: TEXT_BLACK,
-                    fontSize: SizeUtil.getAxisBoth(TEXT_NORMAL_2_SIZE),
+                    fontSize: SizeUtil.getAxisBoth(28),
                     fontWeight: FontWeight.w700),
               ),
             ),
@@ -48,11 +48,11 @@ class TopTitleBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Image.asset(leftImage,
-                      width: SizeUtil.getAxisY(CIRCLE_BUTTON_HEIGHT),
-                      height: SizeUtil.getAxisY(CIRCLE_BUTTON_HEIGHT)),
+                      width: SizeUtil.getAxisY(87),
+                      height: SizeUtil.getAxisY(87)),
                   Image.asset(rightImage,
-                      width: SizeUtil.getAxisY(CIRCLE_BUTTON_HEIGHT),
-                      height: SizeUtil.getAxisY(CIRCLE_BUTTON_HEIGHT))
+                      width: SizeUtil.getAxisY(87),
+                      height: SizeUtil.getAxisY(87))
                 ]),
           )
         ],

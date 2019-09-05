@@ -1,14 +1,12 @@
 import "package:flutter/material.dart";
-import 'top_title.dart';
-import 'package:flutter_ui_nice/util/SizeUtil.dart';
+import 'package:flutter_ui_nice/component/TopTitleBar.dart';
 import 'package:flutter_ui_nice/util/GradientUtil.dart';
-import 'feed_const.dart';
-import 'package:flutter_ui_nice/const/color_const.dart';
 import 'package:flutter_ui_nice/util/Request.dart';
 import 'package:image_save/image_save.dart';
 import 'package:dio/dio.dart';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
+import 'package:flutter_ui_nice/const/images_const.dart';
 
 class VogueDetailPage extends StatefulWidget {
   final String id; // 用来储存传递过来的值
@@ -108,7 +106,7 @@ class _FeedState extends State<VogueDetailPage> {
           children: <Widget>[
             TopTitleBar(
               title: title,
-              rightImage: FeedImage.search_circle,
+              rightImage: OldFeedImage.search_circle,
               rightPress: () async {
                 var text = _data['category'] + ' ' + _data['title'] + '\n\n#色彩图册#';
                 Clipboard.setData(ClipboardData(text: text));

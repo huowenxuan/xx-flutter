@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 import 'package:flutter_ui_nice/page/page_const.dart';
-import 'top_title.dart';
+import 'package:flutter_ui_nice/component/TopTitleBar.dart';
 import 'package:flutter_ui_nice/util/SizeUtil.dart';
 import 'package:flutter_ui_nice/util/GradientUtil.dart';
-import 'feed_const.dart';
 import 'package:flutter_ui_nice/const/color_const.dart';
 import 'package:flutter_ui_nice/util/Request.dart';
+import 'package:flutter_ui_nice/const/images_const.dart';
 
 class VogueListPage extends StatefulWidget {
   @override
@@ -17,13 +17,13 @@ class _FeedState extends State<VogueListPage> {
 
   Widget _textBack(content,
           {color = TEXT_BLACK_LIGHT,
-          size = TEXT_SMALL_2_SIZE,
+          size=12,
           isBold = false}) =>
       Text(
         content,
         style: TextStyle(
             color: color,
-            fontSize: SizeUtil.getAxisBoth(size),
+            fontSize: size + .0,
             fontWeight: isBold ? FontWeight.w700 : null),
       );
 
@@ -44,11 +44,11 @@ class _FeedState extends State<VogueListPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                _textBack(item["name"], size: TEXT_SMALL_3_SIZE, isBold: true),
+                _textBack(item["name"], size: 13, isBold: true),
                 SizedBox(
                   height: SizeUtil.getAxisY(13.0),
                 ),
-                _textBack(item["desc"], size: TEXT_NORMAL_SIZE),
+                _textBack(item["desc"], size: 14),
               ],
             )
           ],
@@ -177,7 +177,7 @@ class _FeedState extends State<VogueListPage> {
         child: Column(
           children: <Widget>[
             TopTitleBar(
-              rightImage: FeedImage.feed_add,
+              rightImage: OldFeedImage.feed_add,
             ),
             Expanded(
               child: _body(),
@@ -203,13 +203,13 @@ class _FeedState extends State<VogueListPage> {
       var header = '';
       switch (i % 3) {
         case 0:
-          header = FeedImage.feed13_header1;
+          header = OldFeedImage.feed13_header1;
           break;
         case 1:
-          header = FeedImage.feed13_header2;
+          header = OldFeedImage.feed13_header2;
           break;
         case 2:
-          header = FeedImage.feed13_header3;
+          header = OldFeedImage.feed13_header3;
           break;
       }
       var imageUrls = [];
