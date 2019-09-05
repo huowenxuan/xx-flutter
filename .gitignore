@@ -73,4 +73,5 @@ build/
 **/macos/**/Pods/
 **/macos/**/DerivedData/
 **/macos/Flutter/ephemeral/
+**/macos/**/xcuserdata
 
