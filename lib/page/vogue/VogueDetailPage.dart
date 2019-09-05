@@ -8,6 +8,7 @@ import 'package:flutter_ui_nice/util/Request.dart';
 import 'package:image_save/image_save.dart';
 import 'package:dio/dio.dart';
 import 'dart:typed_data';
+import 'package:flutter/services.dart';
 
 class VogueDetailPage extends StatefulWidget {
   final String id; // 用来储存传递过来的值
@@ -24,8 +25,10 @@ class _FeedState extends State<VogueDetailPage> {
   var _screenWeight;
 
   _saveImage(url) async {
-    var response = await Dio().get(url, options: Options(responseType: ResponseType.bytes));
-    final result = await ImageSave.saveImage("jpg", Uint8List.fromList(response.data));
+    var response = await Dio()
+        .get(url, options: Options(responseType: ResponseType.bytes));
+    final result =
+        await ImageSave.saveImage("jpg", Uint8List.fromList(response.data));
     print(result);
   }
 
@@ -48,21 +51,20 @@ class _FeedState extends State<VogueDetailPage> {
                       width: _screenWeight / 3 - 1,
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 5, bottom: 5),
-                      child: FlatButton(
-                        onPressed: (){
-                          var downloadUrl = item[index]['url'];
-                          _saveImage(downloadUrl);
-                          print(downloadUrl);
-                        },
-                        padding: EdgeInsets.all(0),
-                        child: Text(
-                          "DOWNLOAD",
-                          style: TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.w500),
-                        ),
-                      )
-                    ),
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                        child: FlatButton(
+                          onPressed: () {
+                            var downloadUrl = item[index]['url'];
+                            _saveImage(downloadUrl);
+                            print(downloadUrl);
+                          },
+                          padding: EdgeInsets.all(0),
+                          child: Text(
+                            "DOWNLOAD",
+                            style: TextStyle(
+                                fontSize: 12, fontWeight: FontWeight.w500),
+                          ),
+                        )),
                   ],
                 ));
           },
@@ -106,6 +108,13 @@ class _FeedState extends State<VogueDetailPage> {
           children: <Widget>[
             TopTitleBar(
               title: title,
+              rightImage: FeedImage.search_circle,
+              rightPress: () async {
+                var text = _data['category'] + ' ' + _data['title'] + '\n\n#色彩图册#';
+                Clipboard.setData(ClipboardData(text: text));
+                text = (await Clipboard.getData(Clipboard.kTextPlain)).text;
+                print(text);
+              },
             ),
             Expanded(
               child: _body(),
