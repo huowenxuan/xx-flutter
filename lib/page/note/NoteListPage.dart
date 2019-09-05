@@ -51,36 +51,39 @@ class _FeedState extends State<NoteListPage> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          _actionChild(Icons.format_size, item["chars"]),
+          _actionChild(Icons.format_size, item["chars"], null),
           SizedBox(width: SizeUtil.getAxisX(75.0)),
-          _actionChild(Icons.edit, ""),
+          _actionChild(Icons.edit, "", null),
           SizedBox(width: SizeUtil.getAxisX(75.0)),
-          _actionChild(Icons.restore_from_trash, ""),
+          _actionChild(Icons.restore_from_trash, "", (){
+            print('a');
+          }),
         ],
       );
 
-  Widget _actionChild(icon, value) => Row(
-        children: <Widget>[
-          Icon(
-            icon,
-            color: TEXT_BLACK_LIGHT,
-            size: SizeUtil.getAxisBoth(30.0),
-          ),
-          SizedBox(width: SizeUtil.getAxisX(20.0)),
-          _textBack(value),
-        ],
-      );
+  Widget _actionChild(icon, value, onPress) => Row(
+    children: <Widget>[
+      Icon(
+        icon,
+        color: TEXT_BLACK_LIGHT,
+        size: SizeUtil.getAxisBoth(30.0),
+      ),
+      SizedBox(width: SizeUtil.getAxisX(20.0)),
+      _textBack(value),
+    ],
+  );
 
   Widget _listItem(item, index) => Container(
         constraints: BoxConstraints.expand(height: 180),
         margin: EdgeInsets.only(top: SizeUtil.getAxisY(40.0)),
         child: FlatButton(
-            padding: EdgeInsets.only(left: 0, right: 0),
+            padding: EdgeInsets.all(0),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => MarkdownPage(
+                    data: item
                   ),
                 ),
               );

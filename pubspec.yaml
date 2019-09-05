@@ -24,6 +24,8 @@ dependencies:
   dio: ^2.1.16 # 网络请求
   image_save: ^1.0.1 # 保存图片到相册
   flustars: ^0.2.6+1 # 工具，包含时间处理、屏幕尺寸
+  flutter_markdown: ^0.2.0
+
 
 
 dev_dependencies:
