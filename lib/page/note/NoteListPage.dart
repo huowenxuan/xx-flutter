@@ -41,7 +41,7 @@ class _FeedState extends State<NoteListPage> {
             SizedBox(
               width: SizeUtil.getAxisX(51.0),
             ),
-            _textBack(item['end'], size: 14),
+            _textBack(_formatTime(item), size: 14),
           ],
         ),
       );
@@ -205,6 +205,18 @@ class _FeedState extends State<NoteListPage> {
     this.initData();
   }
 
+  _formatTime(item) {
+    formatTs(ts) {
+      return  DateFormat('y/M/d HH:mm').format(DateTime.fromMillisecondsSinceEpoch(item['end']));
+    }
+    String show = '';
+    if (item['start'] != null) {
+      show += formatTs(item['start']) + ' - ';
+    }
+    show += formatTs(item['end']);
+    return show;
+  }
+
   initData() async {
     var data = await Request.get('http://huowenxuan.zicp.vip/notes');
     data = data['data'];
@@ -223,11 +235,14 @@ class _FeedState extends State<NoteListPage> {
           header = OldFeedImage.feed13_header3;
           break;
       }
+      var start = item['start'];
+      var end = item['end'];
+
       data[i] = {
         'id': item['id'],
         'header': header,
-        'end': item['end'],
-//        'end': DateUtil.formatDateMs(item['end'], format: "yyyy/MM/dd HH:mm:ss"),
+        'start': start,
+        'end': end,
         'text': item['text'],
         "chars": item['text'].length.toString(),
         "chat": "67",

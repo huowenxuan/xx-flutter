@@ -22,6 +22,9 @@ import 'package:toast/toast.dart';
 复制
 转换
 
+TODO
+end 增加 至今
+start 增加开关
  */
 class NoteEditPage extends StatefulWidget {
   final data; // 用来储存传递过来的值
@@ -37,9 +40,6 @@ class NoteEditPageState extends State<NoteEditPage> {
   var _data;
 
   String _input = "";
-
-//  DateTime _startDate = DateTime.now();
-//  DateTime _endDate = DateTime.now();
 
   DateTime _startDate = null;
   DateTime _endDate = null;
@@ -60,6 +60,8 @@ class NoteEditPageState extends State<NoteEditPage> {
       _data = data;
       _endDate = end;
       _endTime = TimeOfDay.fromDateTime(end);
+      _startDate = start;
+      _startTime = start != null ? TimeOfDay.fromDateTime(start) : null;
     });
   }
 
