@@ -3,9 +3,10 @@ export 'note/MarkdownPage.dart';
 export 'vogue/VogueListPage.dart';
 export 'vogue/VogueDetailPage.dart';
 export 'note/NoteEditPage.dart';
+export 'other/XPage.dart';
+export 'HomePage.dart';
 
 export "origin_home_page.dart";
-export 'home_page.dart';
 export "empty_page.dart";
 export 'signup/SignPageOne.dart';
 export 'signup/SignPageTwo.dart';

@@ -12,7 +12,7 @@ import 'package:flutter_ui_nice/util/GradientUtil.dart';
 class HomePage extends StatelessWidget {
   final _scaffoldState = GlobalKey<ScaffoldState>();
 
-  Widget _topBar() => SliverAppBar(
+  Widget _topBar(context) => SliverAppBar(
         elevation: 1.0,
         pinned: true,
         backgroundColor: BLUE,
@@ -33,7 +33,17 @@ class HomePage extends StatelessWidget {
                 Text(StringConst.APP_NAME,
                     style: TextStyle(
                       color: TEXT_BLACK_LIGHT,
-                    ))
+                    )),
+                IconButton(
+                  icon: Icon(
+                    Icons.ac_unit,
+                    color: Colors.black,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'X');
+                  },
+                ),
               ],
             ),
           ),
@@ -67,8 +77,7 @@ class HomePage extends StatelessWidget {
                     fontSize: TEXT_NORMAL_SIZE,
                     fontWeight: FontWeight.w700),
               ),
-            ]
-            ),
+            ]),
       ),
       onTap: () {
 //        Navigator.pop(context);
@@ -86,7 +95,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _header() {
+  Widget _menuHeader() {
     return Ink(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 4.0),
@@ -131,7 +140,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            _header(),
+            _menuHeader(),
             Expanded(
               child: Container(
                 child: _menuList(menu),
@@ -180,7 +189,7 @@ class HomePage extends StatelessWidget {
 
   Widget _gridItem(context, Menu menu, index) => InkWell(
         onTap: () {
-          switch(index) {
+          switch (index) {
             case 0:
               Navigator.pushNamed(context, "NOTE_LIST");
               break;
@@ -250,7 +259,7 @@ class HomePage extends StatelessWidget {
       builder: (context, shot) {
         return shot.hasData
             ? CustomScrollView(
-                slivers: <Widget>[_topBar(), _gridView(context, shot.data)],
+                slivers: <Widget>[_topBar(context), _gridView(context, shot.data)],
               )
             : Center(
                 child: CircularProgressIndicator(),
