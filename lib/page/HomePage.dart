@@ -8,9 +8,15 @@ import 'package:flutter_ui_nice/const/images_const.dart';
 import 'package:flutter_ui_nice/const/color_const.dart';
 import 'package:flutter_ui_nice/util/SizeUtil.dart';
 import 'package:flutter_ui_nice/util/GradientUtil.dart';
+import 'package:localstorage/localstorage.dart';
 
 class HomePage extends StatelessWidget {
   final _scaffoldState = GlobalKey<ScaffoldState>();
+  final LocalStorage storage = new LocalStorage('xx');
+
+  saveX() async {
+    await storage.setItem('x', true);
+  }
 
   Widget _topBar(context) => SliverAppBar(
         elevation: 1.0,
@@ -38,10 +44,12 @@ class HomePage extends StatelessWidget {
                   icon: Icon(
                     Icons.ac_unit,
                     color: Colors.black,
-                    size: 30,
+                    size: 25,
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'X');
+                  onPressed: () async {
+//                    await saveX();
+                    var data = storage.getItem('x');
+                    if (data == true) Navigator.pushNamed(context, 'X');
                   },
                 ),
               ],
@@ -259,7 +267,10 @@ class HomePage extends StatelessWidget {
       builder: (context, shot) {
         return shot.hasData
             ? CustomScrollView(
-                slivers: <Widget>[_topBar(context), _gridView(context, shot.data)],
+                slivers: <Widget>[
+                  _topBar(context),
+                  _gridView(context, shot.data)
+                ],
               )
             : Center(
                 child: CircularProgressIndicator(),

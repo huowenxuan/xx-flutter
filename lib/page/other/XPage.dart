@@ -3,10 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'package:image_save/image_save.dart';
-import 'dart:typed_data';
-import 'package:dio/dio.dart';
 import 'dart:io';
-import 'dart:convert';
 
 class XPage extends StatefulWidget {
   @override
@@ -28,13 +25,15 @@ class XWidgetState extends State<XPage> {
 
   initData() async {
     final cameras = await availableCameras();
-    print(cameras);
-    camera = cameras.first;
-    _controller = CameraController(
-      camera,
-      ResolutionPreset.medium,
-    );
-    _initializeControllerFuture = _controller.initialize();
+
+    if (cameras.length > 0) {
+      camera = cameras.first;
+      _controller = CameraController(
+        camera,
+        ResolutionPreset.medium,
+      );
+      _initializeControllerFuture = _controller.initialize();
+    }
   }
 
   @override

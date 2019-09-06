@@ -28,7 +28,7 @@ dependencies:
   camera: ^0.5.4+1
   path_provider: 1.2.2 # 寻找存储图片的正确路径
   path: 1.6.4 # 创建适配任何平台的路径
-
+  localstorage: ^2.0.0 # 本地存储，至此所有平台
 
 
 dev_dependencies:
