@@ -23,13 +23,12 @@ dependencies:
   intl: ^0.15.7
   dio: ^2.1.16 # 网络请求
   image_save: ^1.0.1 # 保存图片到相册
-  flustars: ^0.2.6+1 # 工具，包含时间处理、屏幕尺寸
   flutter_markdown: ^0.2.0
   camera: ^0.5.4+1
   path_provider: 1.2.2 # 寻找存储图片的正确路径
   path: 1.6.4 # 创建适配任何平台的路径
   localstorage: ^2.0.0 # 本地存储，至此所有平台
-
+  toast: ^0.1.4
 
 dev_dependencies:
   flutter_test:

@@ -5,8 +5,8 @@ import 'package:flutter_ui_nice/const/color_const.dart';
 import 'package:flutter_ui_nice/util/Request.dart';
 import 'package:flutter_ui_nice/const/images_const.dart';
 import 'package:flutter_ui_nice/component/TopTitleBar.dart';
-import 'package:flustars/flustars.dart';
 import 'package:flutter_ui_nice/page/page_const.dart';
+import 'package:intl/intl.dart';
 
 class NoteListPage extends StatefulWidget {
   @override
@@ -127,7 +127,7 @@ class _FeedState extends State<NoteListPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MarkdownPage(data: item),
+                  builder: (context) => NoteEditPage(data: item),
                 ),
               );
             },
@@ -186,6 +186,7 @@ class _FeedState extends State<NoteListPage> {
         child: Column(
           children: <Widget>[
             TopTitleBar(
+              title: 'NOTE',
               leftImage: OldFeedImage.more_circle,
               rightImage: OldFeedImage.feed_add,
             ),
