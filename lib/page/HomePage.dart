@@ -64,6 +64,7 @@ class HomePage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => NoteDetailPage(data: {
+                          'start': 1567757297684,
                           'end': 1567758297684,
                           'text': 'aaaa',
                         }),

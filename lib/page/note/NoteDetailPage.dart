@@ -253,13 +253,17 @@ class NoteDetailPageState extends State<NoteDetailPage> {
                     onChanged: (newValue) {
                       setState(() {
                         _hadStart = newValue;
+                        if (_startDate == null) {
+                          _startDate = DateTime.now();
+                          _startTime = TimeOfDay.now();
+                        }
                       });
                     },
                     value: _hadStart,
-                    activeColor: Colors.red,
-                    activeTrackColor: Colors.black,
-                    inactiveThumbColor: Colors.green,
-                    inactiveTrackColor: Colors.blue,
+//                    activeColor: Colors.red,
+                    activeTrackColor: Colors.cyan,
+//                    inactiveThumbColor: Colors.green,
+//                    inactiveTrackColor: Colors.blue,
                   )),
               _formTextField(
                   'END',
