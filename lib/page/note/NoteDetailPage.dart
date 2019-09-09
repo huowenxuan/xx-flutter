@@ -8,11 +8,6 @@ import 'package:flutter_ui_nice/util/Request.dart';
 import 'package:intl/intl.dart';
 import 'package:toast/toast.dart';
 
-/*
-TODO
-end 增加 至今
-start 增加开关
- */
 class NoteDetailPage extends StatefulWidget {
   final data; // 用来储存传递过来的值
   // 类的构造器，用来接收传递的值
@@ -28,6 +23,7 @@ class NoteDetailPageState extends State<NoteDetailPage> {
 
   String _input = "";
 
+  bool _hadStart = false;
   DateTime _startDate = null;
   DateTime _endDate = null;
   TimeOfDay _startTime = TimeOfDay.now();
@@ -39,17 +35,21 @@ class NoteDetailPageState extends State<NoteDetailPage> {
     var data = widget.data;
     DateTime end = DateTime.fromMillisecondsSinceEpoch(data['end']);
     DateTime start;
-    if (data['start'] != null) {
-      start = DateTime.fromMillisecondsSinceEpoch(data['start']);
-    }
     setState(() {
       _input = data != null ? data['text'] : "";
       _data = data;
       _endDate = end;
       _endTime = TimeOfDay.fromDateTime(end);
-      _startDate = start;
-      _startTime = start != null ? TimeOfDay.fromDateTime(start) : null;
     });
+
+    if (data['start'] != null) {
+      start = DateTime.fromMillisecondsSinceEpoch(data['start']);
+      setState(() {
+        _hadStart = true;
+        _startDate = start;
+        _startTime = start != null ? TimeOfDay.fromDateTime(start) : null;
+      });
+    }
   }
 
   _formatDateTime(isStart) {
@@ -112,7 +112,7 @@ class NoteDetailPageState extends State<NoteDetailPage> {
 
   Widget _pickerInput(isStart, isDate) {
     return Container(
-      width: 150,
+      width: 160,
       child: TextField(
         keyboardType: TextInputType.datetime,
         onTap: () {
@@ -143,23 +143,33 @@ class NoteDetailPageState extends State<NoteDetailPage> {
     );
   }
 
-  Widget _formTextField(String text) {
+  Widget _formTextField(String text, showPicker, rightChild) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(
-          text,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w500,
-            color: Colors.black26,
+        SizedBox(
+          height: 30,
+          child: Row(
+            children: <Widget>[
+              Text(
+                text,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black26,
+                ),
+              ),
+              rightChild != null ? rightChild : Container()
+            ],
           ),
         ),
-        Row(children: <Widget>[
-          _pickerInput(text == 'START', true),
-          _pickerInput(text == 'START', false),
-        ]),
+        showPicker
+            ? Row(children: <Widget>[
+                _pickerInput(text == 'START', true),
+                _pickerInput(text == 'START', false),
+              ])
+            : Container(),
       ],
     );
   }
@@ -199,6 +209,7 @@ class NoteDetailPageState extends State<NoteDetailPage> {
                 var postData = {
                   'user_id': '1',
                   'text': _input,
+                  'start': _hadStart ? _formatDateTime(true)['timestamp'] : null,
                   'end': _formatDateTime(false)['timestamp']
                 };
                 if (_data != null) {
@@ -225,15 +236,59 @@ class NoteDetailPageState extends State<NoteDetailPage> {
                 builder: (context) {
                   return new AlertDialog(
                     title: new Text(dialogText,
-                        style: new TextStyle(color: isError ? Colors.red : Colors.black)),
+                        style: new TextStyle(
+                            color: isError ? Colors.red : Colors.black)),
                   );
                 });
           },
         ),
-        _formTextField('START'),
-        _formTextField('END'),
+        Container(
+          padding: EdgeInsets.only(left: 20),
+          child: Column(
+            children: <Widget>[
+              _formTextField(
+                  'START',
+                  _hadStart,
+                  Switch(
+                    onChanged: (newValue) {
+                      setState(() {
+                        _hadStart = newValue;
+                      });
+                    },
+                    value: _hadStart,
+                    activeColor: Colors.red,
+                    activeTrackColor: Colors.black,
+                    inactiveThumbColor: Colors.green,
+                    inactiveTrackColor: Colors.blue,
+                  )),
+              _formTextField(
+                  'END',
+                  true,
+                  IconButton(
+                    padding: EdgeInsets.all(0),
+                    icon: Icon(Icons.update),
+                    onPressed: () {
+                      setState(() {
+                        _endDate = DateTime.now();
+                        _endTime = TimeOfDay.now();
+                      });
+                    },
+                  ))
+//                  ButtonTheme(
+//                    minWidth: 0.0,
+//                    height: 20.0,
+//                    child: RaisedButton(
+//                      padding: EdgeInsets.all(0),
+//                      onPressed: () {},
+//                      child: Text("test"),
+//                    ),
+//                  ))
+            ],
+          ),
+        ),
         Expanded(
             child: Container(
+          padding: EdgeInsets.only(left: 20, right: 20),
           child: TextField(
             maxLines: 300,
             controller: new TextEditingController(text: this._input),
@@ -260,9 +315,7 @@ class NoteDetailPageState extends State<NoteDetailPage> {
           }),
       body: Container(
           decoration: BoxDecoration(gradient: GradientUtil.yellowGreen()),
-          child: Container(
-              padding: EdgeInsets.only(left: 20, right: 20),
-              child: _isEditMode ? _editMode() : _reviewMode())),
+          child: Container(child: _isEditMode ? _editMode() : _reviewMode())),
     );
   }
 }

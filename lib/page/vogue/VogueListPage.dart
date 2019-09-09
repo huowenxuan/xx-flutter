@@ -177,6 +177,7 @@ class _FeedState extends State<VogueListPage> {
         child: Column(
           children: <Widget>[
             TopTitleBar(
+              title: 'VOGUE',
               rightImage: OldFeedImage.feed_add,
             ),
             Expanded(
