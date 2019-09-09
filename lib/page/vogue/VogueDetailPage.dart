@@ -8,6 +8,10 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:flutter_ui_nice/const/images_const.dart';
 
+/*
+TODO
+刷新旋转icon
+ */
 class VogueDetailPage extends StatefulWidget {
   final String id; // 用来储存传递过来的值
   // 类的构造器，用来接收传递的值
