@@ -14,11 +14,97 @@ class VogueListPage extends StatefulWidget {
 
 class _FeedState extends State<VogueListPage> {
   var _data = [];
+  int _offset = 0;
+  bool _isPerformingRequest = false;
+  ScrollController _scrollController = new ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >
+          _scrollController.position.maxScrollExtent - 50) {
+        _appendData();
+      }
+    });
+    this.initData();
+  }
+
+  @override
+  dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  _formatList(list) {
+    for (var i = 0; i < list.length; i++) {
+      var item = list[i];
+      var header = '';
+      switch (i % 3) {
+        case 0:
+          header = OldFeedImage.feed13_header1;
+          break;
+        case 1:
+          header = OldFeedImage.feed13_header2;
+          break;
+        case 2:
+          header = OldFeedImage.feed13_header3;
+          break;
+      }
+      var imageUrls = [];
+      for (var image in item['images']) {
+        imageUrls.add(image['thumbnails']);
+      }
+      list[i] = {
+        'id': item['id'],
+        'header': header,
+        'name': item['title'],
+        'desc': item['category'],
+        "like": "123",
+        "chat": "67",
+        "share": "12",
+        'images': imageUrls
+      };
+    }
+    return list;
+  }
+
+  Future<void> initData() async {
+    try {
+      var response = await Request.get('http://huowenxuan.zicp.vip/vogues');
+      setState(() {
+        _offset = 10;
+        _data = _formatList(response['data']);
+      });
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return new AlertDialog(
+              title: new Text(e.toString(),
+                  style: new TextStyle(color: Colors.red)),
+            );
+          });
+      return;
+    }
+  }
+
+  _appendData() async {
+    if (!_isPerformingRequest) {
+      setState(() => _isPerformingRequest = true);
+      int limit = 10;
+      var response = await Request.get(
+          'http://huowenxuan.zicp.vip/vogues?limit=$limit&offset=$_offset');
+      setState(() {
+        _offset += limit;
+        _data.addAll(_formatList(response['data']));
+        _isPerformingRequest = false;
+      });
+    }
+  }
 
   Widget _textBack(content,
-          {color = TEXT_BLACK_LIGHT,
-          size=12,
-          isBold = false}) =>
+          {color = TEXT_BLACK_LIGHT, size = 12, isBold = false}) =>
       Text(
         content,
         style: TextStyle(
@@ -160,14 +246,17 @@ class _FeedState extends State<VogueListPage> {
         ),
       ));
 
-  Widget _body() => ListView.builder(
+  Widget _body() => RefreshIndicator(
+      onRefresh: initData,
+      backgroundColor: YELLOW,
+      color: RED,
+      child: ListView.builder(
+        controller: _scrollController,
         itemBuilder: (context, index) {
-          var item = _data[index % _data.length];
-          return _listItem(item, index);
+          return _listItem(_data[index], index);
         },
         itemCount: _data.length,
-        padding: EdgeInsets.only(top: 0.1),
-      );
+      ));
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +267,6 @@ class _FeedState extends State<VogueListPage> {
           children: <Widget>[
             TopTitleBar(
               title: 'VOGUE',
-              rightImage: OldFeedImage.feed_add,
             ),
             Expanded(
               child: _body(),
@@ -187,50 +275,5 @@ class _FeedState extends State<VogueListPage> {
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    this.initData();
-  }
-
-  initData() async {
-    var data = await Request.get('http://huowenxuan.zicp.vip/vogues');
-    data = data['data'];
-
-    for (var i = 0; i < data.length; i++) {
-      var item = data[i];
-      var header = '';
-      switch (i % 3) {
-        case 0:
-          header = OldFeedImage.feed13_header1;
-          break;
-        case 1:
-          header = OldFeedImage.feed13_header2;
-          break;
-        case 2:
-          header = OldFeedImage.feed13_header3;
-          break;
-      }
-      var imageUrls = [];
-      for (var image in item['images']) {
-        imageUrls.add(image['thumbnails']);
-      }
-      data[i] = {
-        'id': item['id'],
-        'header': header,
-        'name': item['title'],
-        'desc': item['category'],
-        "like": "123",
-        "chat": "67",
-        "share": "12",
-        'images': imageUrls
-      };
-    }
-
-    setState(() {
-      _data = data;
-    });
   }
 }

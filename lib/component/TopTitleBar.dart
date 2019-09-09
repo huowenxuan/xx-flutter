@@ -6,7 +6,7 @@ import 'package:flutter_ui_nice/const/images_const.dart';
 class TopTitleBar extends StatelessWidget {
   TopTitleBar(
       {this.leftImage = OldFeedImage.more_circle,
-      this.rightImage = OldFeedImage.search_circle,
+      this.rightImage,
       this.title = 'FEED',
       this.leftPress,
       this.rightPress});
@@ -60,7 +60,7 @@ class TopTitleBar extends StatelessWidget {
                       width: 40,
                     ),
                   ),
-                  IconButton(
+                  rightImage == null ? Container() : IconButton(
                     onPressed: rightPress,
                     icon: Image.asset(
                       rightImage,

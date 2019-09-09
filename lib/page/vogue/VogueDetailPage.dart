@@ -100,6 +100,11 @@ class _FeedState extends State<VogueDetailPage> {
     _screenWeight = MediaQuery.of(context).size.width;
     String title = _data['title'] != null ? _data['title'] : '';
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.refresh),
+          onPressed: () {
+            initData();
+          }),
       body: Container(
         decoration: BoxDecoration(gradient: GradientUtil.yellowGreen()),
         child: Column(
@@ -108,7 +113,8 @@ class _FeedState extends State<VogueDetailPage> {
               title: title,
               rightImage: OldFeedImage.search_circle,
               rightPress: () async {
-                var text = _data['category'] + ' ' + _data['title'] + '\n\n#色彩图册#';
+                var text =
+                    _data['category'] + ' ' + _data['title'] + '\n\n#色彩图册#';
                 Clipboard.setData(ClipboardData(text: text));
                 text = (await Clipboard.getData(Clipboard.kTextPlain)).text;
                 print(text);

@@ -102,15 +102,14 @@ class _FeedState extends State<NoteListPage> {
           });
       return;
     }
-
-
   }
 
   _appendData() async {
     if (!_isPerformingRequest) {
       setState(() => _isPerformingRequest = true);
       int limit = 10;
-      var response = await Request.get('http://huowenxuan.zicp.vip/notes?limit=$limit&offset=$_offset');
+      var response = await Request.get(
+          'http://huowenxuan.zicp.vip/notes?limit=$limit&offset=$_offset');
       setState(() {
         _offset += limit;
         _data.addAll(_formatList(response['data']));
@@ -123,8 +122,10 @@ class _FeedState extends State<NoteListPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            NoteDetailPage(data: item, isEditMode: isEditMode, onSuccess: (){
+        builder: (context) => NoteDetailPage(
+            data: item,
+            isEditMode: isEditMode,
+            onSuccess: () {
               this.initData();
             }),
       ),
@@ -208,7 +209,7 @@ class _FeedState extends State<NoteListPage> {
 
   Widget _listItem(item, index) => Container(
         constraints: BoxConstraints.expand(height: 170),
-        margin: EdgeInsets.only(top: SizeUtil.getAxisY(40.0)),
+        margin: EdgeInsets.only(top: 10, bottom: 10),
         child: FlatButton(
             padding: EdgeInsets.all(0),
             onPressed: () {
