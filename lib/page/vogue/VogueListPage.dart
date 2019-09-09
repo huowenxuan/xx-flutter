@@ -71,7 +71,7 @@ class _FeedState extends State<VogueListPage> {
 
   Future<void> initData() async {
     try {
-      var response = await Request.get('http://huowenxuan.zicp.vip/vogues');
+      var response = await Request.get(Request.API + 'vogues');
       setState(() {
         _offset = 10;
         _data = _formatList(response['data']);
@@ -94,7 +94,7 @@ class _FeedState extends State<VogueListPage> {
       setState(() => _isPerformingRequest = true);
       int limit = 10;
       var response = await Request.get(
-          'http://huowenxuan.zicp.vip/vogues?limit=$limit&offset=$_offset');
+          Request.API +'vogues?limit=$limit&offset=$_offset');
       setState(() {
         _offset += limit;
         _data.addAll(_formatList(response['data']));

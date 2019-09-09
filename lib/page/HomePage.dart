@@ -19,73 +19,57 @@ class HomePage extends StatelessWidget {
     await storage.setItem('x', true);
   }
 
-  Widget _topBar(context) => SliverAppBar(
-        elevation: 1.0,
-        pinned: true,
-        backgroundColor: BLUE,
-        expandedHeight: 150.0,
-        flexibleSpace: FlexibleSpaceBar(
-          title: Padding(
-            padding: EdgeInsets.only(top: 0, left: 70),
-            child: Row(
-              children: <Widget>[
-                Image.asset(
-                  MainImagePath.image_app,
-                  width: 40,
-                  height: 40,
-                ),
-                SizedBox(
-                  width: 6.0,
-                ),
-                Text(StringConst.APP_NAME,
-                    style: TextStyle(
-                      color: TEXT_BLACK_LIGHT,
-                    )),
-                IconButton(
-                  icon: Icon(
-                    Icons.ac_unit,
-                    color: Colors.black,
-                    size: 25,
-                  ),
-                  onPressed: () async {
-//                    await saveX();
-                    var data = storage.getItem('x');
-                    if (data == true) Navigator.pushNamed(context, 'X');
-                  },
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.restore_from_trash,
-                    color: Colors.black,
-                    size: 25,
-                  ),
-                  onPressed: () async {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NoteDetailPage(data: {
-                          'start': 1567757297684,
-                          'end': 1567758297684,
-                          'text': 'aaaa',
-                        }),
+  Widget _topBar(context) {
+    var x = storage.getItem('x');
+    return SliverAppBar(
+      elevation: 1.0,
+      pinned: true,
+      backgroundColor: BLUE,
+      expandedHeight: 150.0,
+      flexibleSpace: FlexibleSpaceBar(
+        title: Padding(
+          padding: EdgeInsets.only(top: 0, left: 70),
+          child: Row(
+            children: <Widget>[
+              Image.asset(
+                MainImagePath.image_app,
+                width: 40,
+                height: 40,
+              ),
+              SizedBox(
+                width: 6.0,
+              ),
+              Text(StringConst.APP_NAME,
+                  style: TextStyle(
+                    color: TEXT_BLACK_LIGHT,
+                  )),
+              x != true
+                  ? FlatButton()
+                  : IconButton(
+                      icon: Icon(
+                        Icons.ac_unit,
+                        color: Colors.black,
+                        size: 25,
                       ),
-                    );
-                  },
-                ),
-              ],
-            ),
+                      onPressed: () async {
+//                    await saveX();
+                        Navigator.pushNamed(context, 'X');
+                      })
+            ],
           ),
-          background: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-                YELLOW,
-                BLUE,
-              ]),
-            ),
-          ),
-          collapseMode: CollapseMode.pin,
         ),
-      );
+        background: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+              YELLOW,
+              BLUE,
+            ]),
+          ),
+        ),
+        collapseMode: CollapseMode.pin,
+      ),
+    );
+  }
 
   Widget _menuItem(context, item) {
     return InkWell(
@@ -223,6 +207,9 @@ class HomePage extends StatelessWidget {
               break;
             case 1:
               Navigator.pushNamed(context, "VOGUE_LIST");
+              break;
+            case 2:
+              Navigator.pushNamed(context, 'LOGISTIC_SUBSCRIBE');
               break;
             default:
               _clickMenu(context, menu);

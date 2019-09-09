@@ -4,9 +4,11 @@ export 'vogue/VogueDetailPage.dart';
 export 'note/NoteDetailPage.dart';
 export 'other/XPage.dart';
 export 'HomePage.dart';
+export 'logistic/LogisticSubscribePage.dart';
+export "empty_page.dart";
 
 export "origin_home_page.dart";
-export "empty_page.dart";
+
 export 'signup/SignPageOne.dart';
 export 'signup/SignPageTwo.dart';
 export 'signup/SignPageFour.dart';

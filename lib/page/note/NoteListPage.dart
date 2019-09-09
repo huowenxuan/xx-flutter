@@ -86,7 +86,7 @@ class _FeedState extends State<NoteListPage> {
 
   Future<void> initData() async {
     try {
-      var response = await Request.get('http://huowenxuan.zicp.vip/notes');
+      var response = await Request.get(Request.API + 'notes');
       setState(() {
         _offset = 0;
         _data = _formatList(response['data']);
@@ -109,7 +109,7 @@ class _FeedState extends State<NoteListPage> {
       setState(() => _isPerformingRequest = true);
       int limit = 10;
       var response = await Request.get(
-          'http://huowenxuan.zicp.vip/notes?limit=$limit&offset=$_offset');
+          Request.API +'notes?limit=$limit&offset=$_offset');
       setState(() {
         _offset += limit;
         _data.addAll(_formatList(response['data']));
@@ -164,7 +164,7 @@ class _FeedState extends State<NoteListPage> {
                       new FlatButton(
                         onPressed: () async {
                           await Request.delete(
-                              'http://huowenxuan.zicp.vip/note/' + item['id'],
+                              Request.API + 'note/' + item['id'],
                               null);
                           _data.removeAt(index);
                           setState(() => _data = _data);

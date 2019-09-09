@@ -14,17 +14,17 @@ class NoteDetailPage extends StatefulWidget {
   final onSuccess;
 
   // 类的构造器，用来接收传递的值
-  NoteDetailPage({Key key, this.data, this.isEditMode, this.onSuccess}) : super(key: key);
+  NoteDetailPage({Key key, this.data, this.isEditMode, this.onSuccess})
+      : super(key: key);
 
   @override
   NoteDetailPageState createState() => NoteDetailPageState();
 }
 
 class NoteDetailPageState extends State<NoteDetailPage> {
+  TextEditingController _inputController = TextEditingController();
   bool _isEditMode;
   var _data;
-
-  String _input = "";
 
   bool _hadStart = false;
   DateTime _startDate = null;
@@ -47,7 +47,7 @@ class NoteDetailPageState extends State<NoteDetailPage> {
         data = {'text': ''};
       }
       _data = data;
-      _input = data['text'];
+      _inputController.text = data['text'];
 
       if (data['start'] != null) {
         DateTime start = DateTime.fromMillisecondsSinceEpoch(data['start']);
@@ -62,6 +62,10 @@ class NoteDetailPageState extends State<NoteDetailPage> {
       _endDate = end;
       _endTime = TimeOfDay.fromDateTime(end);
     });
+  }
+
+  _getInput() {
+    return _inputController.text;
   }
 
   _formatDateTime(isStart) {
@@ -194,13 +198,15 @@ class NoteDetailPageState extends State<NoteDetailPage> {
           leftImage: OldFeedImage.more_circle,
           rightImage: OldFeedImage.search_circle, // copy
           rightPress: () {
-            Clipboard.setData(ClipboardData(text: _data['text']));
+            Clipboard.setData(ClipboardData(
+                text: _getInput() != null ? _getInput() : _data['text']));
             Toast.show("Copy Done!", context,
                 gravity: Toast.BOTTOM, backgroundColor: Color(0xFF34323D));
           },
         ),
         Expanded(
-          child: Markdown(data: _data['text']),
+          child:
+              Markdown(data: _getInput() != null ? _getInput() : _data['text']),
         )
       ],
     );
@@ -215,35 +221,25 @@ class NoteDetailPageState extends State<NoteDetailPage> {
           rightImage: OldFeedImage.feed_add,
           rightPress: () async {
             String dialogText = '';
-            bool isError = false;
             try {
-              if (_isEditMode) {
-                if (_endDate == null) return;
-                var postData = {
-                  'user_id': '1',
-                  'text': _input,
-                  'start':
-                      _hadStart ? _formatDateTime(true)['timestamp'] : null,
-                  'end': _formatDateTime(false)['timestamp']
-                };
-                if (_data['id'] != null) {
-                  await Request.put(
-                      'http://huowenxuan.zicp.vip/note/' + _data['id'],
-                      postData);
-                } else {
-                  await Request.post(
-                      'http://huowenxuan.zicp.vip/note', postData);
-                }
-                if (widget.onSuccess != null) widget.onSuccess();
-                dialogText = 'Save Success!';
-                Navigator.pop(context);
+              if (_endDate == null) return;
+              var postData = {
+                'user_id': '1',
+                'text': _getInput(),
+                'start': _hadStart ? _formatDateTime(true)['timestamp'] : null,
+                'end': _formatDateTime(false)['timestamp']
+              };
+              if (_data['id'] != null) {
+                await Request.put(
+                    Request.API + 'note/' + _data['id'], postData);
               } else {
-                Clipboard.setData(ClipboardData(text: _input));
-                dialogText = 'Copy Success!';
+                await Request.post(Request.API + 'note', postData);
               }
+              if (widget.onSuccess != null) widget.onSuccess();
+              dialogText = 'Save Success!';
+              Navigator.pop(context);
             } catch (e) {
               dialogText = e.toString();
-              isError = true;
             }
 
             Toast.show(dialogText, context,
@@ -303,12 +299,8 @@ class NoteDetailPageState extends State<NoteDetailPage> {
           padding: EdgeInsets.only(left: 20, right: 20),
           child: TextField(
             maxLines: 300,
-            controller: new TextEditingController(text: this._input),
-            onChanged: (val) {
-              setState(() {
-                this._input = val;
-              });
-            },
+            controller: _inputController,
+            autocorrect: false,
           ),
         ))
       ],

@@ -140,7 +140,7 @@ class _FeedState extends State<VogueDetailPage> {
   }
 
   initData() async {
-    String url = 'http://huowenxuan.zicp.vip/vogue/' + widget.id;
+    String url = Request.API + 'vogue/' + widget.id;
     var data = await Request.get(url);
     data = data['data'];
 
