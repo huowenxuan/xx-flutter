@@ -57,7 +57,7 @@ class _FeedState extends State<NoteListPage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => NoteEditPage(data: item),
+                builder: (context) => NoteDetailPage(data: item),
               ),
             );
           }),
@@ -73,23 +73,15 @@ class _FeedState extends State<NoteListPage> {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: Text(
-                          'Yes',
-                          style: new TextStyle(
-                            color: Colors.red
-                          )
-                        ),
+                        child: Text('Yes',
+                            style: new TextStyle(color: Colors.red)),
                       ),
                       new FlatButton(
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child:  Text(
-                            'No',
-                            style: new TextStyle(
-                                color: Colors.black
-                            )
-                        ),
+                        child: Text('No',
+                            style: new TextStyle(color: Colors.black)),
                       ),
                     ],
                   );
@@ -99,24 +91,24 @@ class _FeedState extends State<NoteListPage> {
       );
 
   Widget _actionChild(icon, value, onPress) => Container(
-    width: 70,
-    height: 25,
-    child: FlatButton(
-      padding: EdgeInsets.all(0),
-      onPressed: onPress,
-      child: Row(
-        children: <Widget>[
-          Icon(
-            icon,
-            color: TEXT_BLACK_LIGHT,
-            size: SizeUtil.getAxisBoth(30.0),
+        width: 70,
+        height: 25,
+        child: FlatButton(
+          padding: EdgeInsets.all(0),
+          onPressed: onPress,
+          child: Row(
+            children: <Widget>[
+              Icon(
+                icon,
+                color: TEXT_BLACK_LIGHT,
+                size: SizeUtil.getAxisBoth(30.0),
+              ),
+              SizedBox(width: SizeUtil.getAxisX(20.0)),
+              _textBack(value),
+            ],
           ),
-          SizedBox(width: SizeUtil.getAxisX(20.0)),
-          _textBack(value),
-        ],
-      ),
-    ),
-  );
+        ),
+      );
 
   Widget _listItem(item, index) => Container(
         constraints: BoxConstraints.expand(height: 180),
@@ -127,7 +119,7 @@ class _FeedState extends State<NoteListPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => NoteEditPage(data: item),
+                  builder: (context) => NoteDetailPage(data: item),
                 ),
               );
             },
@@ -207,8 +199,10 @@ class _FeedState extends State<NoteListPage> {
 
   _formatTime(item) {
     formatTs(ts) {
-      return  DateFormat('y/M/d HH:mm').format(DateTime.fromMillisecondsSinceEpoch(item['end']));
+      return DateFormat('y/M/d HH:mm')
+          .format(DateTime.fromMillisecondsSinceEpoch(item['end']));
     }
+
     String show = '';
     if (item['start'] != null) {
       show += formatTs(item['start']) + ' - ';
@@ -218,8 +212,21 @@ class _FeedState extends State<NoteListPage> {
   }
 
   initData() async {
-    var data = await Request.get('http://huowenxuan.zicp.vip/notes');
-    data = data['data'];
+    var data;
+    try {
+      var response = await Request.get('http://huowenxuan.zicp.vip/notes');
+      data = response['data'];
+    } catch (e) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return new AlertDialog(
+              title: new Text(e.toString(),
+                  style: new TextStyle(color: Colors.red)),
+            );
+          });
+      return;
+    }
 
     for (var i = 0; i < data.length; i++) {
       var item = data[i];

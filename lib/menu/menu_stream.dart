@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_ui_nice/item/Menu.dart';
+import 'package:flutter_ui_nice/menu/Menu.dart';
 import 'package:flutter_ui_nice/const/images_const.dart';
 
 const SIGN_UP_PAGES = [

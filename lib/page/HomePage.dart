@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import 'package:flutter_ui_nice/item/menu_stream.dart';
-import 'package:flutter_ui_nice/item/Menu.dart';
+import 'package:flutter_ui_nice/menu/menu_stream.dart';
+import 'package:flutter_ui_nice/menu/Menu.dart';
 import 'package:flutter_ui_nice/const/string_const.dart';
 import 'package:flutter_ui_nice/view/AboutMeTitle.dart';
 import 'package:flutter_ui_nice/const/size_const.dart';
@@ -9,6 +9,7 @@ import 'package:flutter_ui_nice/const/color_const.dart';
 import 'package:flutter_ui_nice/util/SizeUtil.dart';
 import 'package:flutter_ui_nice/util/GradientUtil.dart';
 import 'package:localstorage/localstorage.dart';
+import 'package:flutter_ui_nice/page/page_const.dart';
 
 class HomePage extends StatelessWidget {
   final _scaffoldState = GlobalKey<ScaffoldState>();
@@ -50,6 +51,24 @@ class HomePage extends StatelessWidget {
 //                    await saveX();
                     var data = storage.getItem('x');
                     if (data == true) Navigator.pushNamed(context, 'X');
+                  },
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.restore_from_trash,
+                    color: Colors.black,
+                    size: 25,
+                  ),
+                  onPressed: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NoteDetailPage(data: {
+                          'end': 1111,
+                          'text': 'aaaa',
+                        }),
+                      ),
+                    );
                   },
                 ),
               ],

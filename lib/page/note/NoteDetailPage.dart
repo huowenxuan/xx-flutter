@@ -9,33 +9,20 @@ import 'package:intl/intl.dart';
 import 'package:toast/toast.dart';
 
 /*
-
-模式转换
-复制
-提交
-
-编辑模式:
-提交
-转换
-
-预览模式:
-复制
-转换
-
 TODO
 end 增加 至今
 start 增加开关
  */
-class NoteEditPage extends StatefulWidget {
+class NoteDetailPage extends StatefulWidget {
   final data; // 用来储存传递过来的值
   // 类的构造器，用来接收传递的值
-  NoteEditPage({Key key, this.data}) : super(key: key);
+  NoteDetailPage({Key key, this.data}) : super(key: key);
 
   @override
-  NoteEditPageState createState() => NoteEditPageState();
+  NoteDetailPageState createState() => NoteDetailPageState();
 }
 
-class NoteEditPageState extends State<NoteEditPage> {
+class NoteDetailPageState extends State<NoteDetailPage> {
   bool _isEditMode = true;
   var _data;
 
@@ -205,18 +192,42 @@ class NoteEditPageState extends State<NoteEditPage> {
           leftImage: OldFeedImage.more_circle,
           rightImage: OldFeedImage.feed_add,
           rightPress: () async {
-            var postData = {
-              'user_id': '1',
-              'text': _input,
-              'end': _formatDateTime(false)['timestamp']
-            };
-            if (_data != null) {
-              await Request.put(
-                  'http://huowenxuan.zicp.vip/note/' + _data['id'], postData);
-            } else {
-              await Request.post('http://huowenxuan.zicp.vip/note', postData);
+            String dialogText = '';
+            bool isError = false;
+            try {
+              if (_isEditMode) {
+                var postData = {
+                  'user_id': '1',
+                  'text': _input,
+                  'end': _formatDateTime(false)['timestamp']
+                };
+                if (_data != null) {
+                  await Request.put(
+                      'http://huowenxuan.zicp.vip/note/' + _data['id'],
+                      postData);
+                } else {
+                  await Request.post(
+                      'http://huowenxuan.zicp.vip/note', postData);
+                }
+                dialogText = 'Save Success!';
+//              Navigator.pop(context);
+              } else {
+                Clipboard.setData(ClipboardData(text: _input));
+                dialogText = 'Copy Success!';
+              }
+            } catch (e) {
+              dialogText = e.toString();
+              isError = true;
             }
-            Navigator.pop(context);
+
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return new AlertDialog(
+                    title: new Text(dialogText,
+                        style: new TextStyle(color: isError ? Colors.red : Colors.black)),
+                  );
+                });
           },
         ),
         _formTextField('START'),
@@ -246,7 +257,6 @@ class NoteEditPageState extends State<NoteEditPage> {
             setState(() {
               _isEditMode = !_isEditMode;
             });
-//            Clipboard.setData(ClipboardData(text: _input));
           }),
       body: Container(
           decoration: BoxDecoration(gradient: GradientUtil.yellowGreen()),

@@ -1,7 +1,7 @@
 export 'note/NoteListPage.dart';
 export 'vogue/VogueListPage.dart';
 export 'vogue/VogueDetailPage.dart';
-export 'note/NoteEditPage.dart';
+export 'note/NoteDetailPage.dart';
 export 'other/XPage.dart';
 export 'HomePage.dart';
 

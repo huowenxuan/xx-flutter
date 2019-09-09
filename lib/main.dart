@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'const/string_const.dart';
 import 'const/color_const.dart';
 import "page/page_const.dart";
-import 'package:camera/camera.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
         'NOTE_LIST': (context) => NoteListPage(),
         'VOGUE_LIST': (context) => VogueListPage(),
         'VOGUE_DETAIL': (context) => VogueDetailPage(),
-        'NOTE_EDIT': (context) => NoteEditPage(),
+        'NOTE_EDIT': (context) => NoteDetailPage(),
         'X': (context) => XPage(),
 
         //PROFILE pages
