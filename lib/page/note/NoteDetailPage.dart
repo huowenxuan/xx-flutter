@@ -9,16 +9,19 @@ import 'package:intl/intl.dart';
 import 'package:toast/toast.dart';
 
 class NoteDetailPage extends StatefulWidget {
-  final data; // 用来储存传递过来的值
+  final data;
+  final isEditMode;
+  final onSuccess;
+
   // 类的构造器，用来接收传递的值
-  NoteDetailPage({Key key, this.data}) : super(key: key);
+  NoteDetailPage({Key key, this.data, this.isEditMode, this.onSuccess}) : super(key: key);
 
   @override
   NoteDetailPageState createState() => NoteDetailPageState();
 }
 
 class NoteDetailPageState extends State<NoteDetailPage> {
-  bool _isEditMode = true;
+  bool _isEditMode;
   var _data;
 
   String _input = "";
@@ -33,23 +36,32 @@ class NoteDetailPageState extends State<NoteDetailPage> {
   void initState() {
     super.initState();
     var data = widget.data;
-    DateTime end = DateTime.fromMillisecondsSinceEpoch(data['end']);
-    DateTime start;
+    var isEditMode = widget.isEditMode;
     setState(() {
-      _input = data != null ? data['text'] : "";
-      _data = data;
-      _endDate = end;
-      _endTime = TimeOfDay.fromDateTime(end);
-    });
+      _isEditMode = true;
+      if (isEditMode != null) {
+        _isEditMode = isEditMode;
+      }
 
-    if (data['start'] != null) {
-      start = DateTime.fromMillisecondsSinceEpoch(data['start']);
-      setState(() {
+      if (data == null) {
+        data = {'text': ''};
+      }
+      _data = data;
+      _input = data['text'];
+
+      if (data['start'] != null) {
+        DateTime start = DateTime.fromMillisecondsSinceEpoch(data['start']);
         _hadStart = true;
         _startDate = start;
         _startTime = start != null ? TimeOfDay.fromDateTime(start) : null;
-      });
-    }
+      }
+
+      DateTime end = DateTime.now();
+      if (data['end'] != null)
+        end = DateTime.fromMillisecondsSinceEpoch(data['end']);
+      _endDate = end;
+      _endTime = TimeOfDay.fromDateTime(end);
+    });
   }
 
   _formatDateTime(isStart) {
@@ -206,13 +218,15 @@ class NoteDetailPageState extends State<NoteDetailPage> {
             bool isError = false;
             try {
               if (_isEditMode) {
+                if (_endDate == null) return;
                 var postData = {
                   'user_id': '1',
                   'text': _input,
-                  'start': _hadStart ? _formatDateTime(true)['timestamp'] : null,
+                  'start':
+                      _hadStart ? _formatDateTime(true)['timestamp'] : null,
                   'end': _formatDateTime(false)['timestamp']
                 };
-                if (_data != null) {
+                if (_data['id'] != null) {
                   await Request.put(
                       'http://huowenxuan.zicp.vip/note/' + _data['id'],
                       postData);
@@ -220,8 +234,9 @@ class NoteDetailPageState extends State<NoteDetailPage> {
                   await Request.post(
                       'http://huowenxuan.zicp.vip/note', postData);
                 }
+                if (widget.onSuccess != null) widget.onSuccess();
                 dialogText = 'Save Success!';
-//              Navigator.pop(context);
+                Navigator.pop(context);
               } else {
                 Clipboard.setData(ClipboardData(text: _input));
                 dialogText = 'Copy Success!';
@@ -231,15 +246,8 @@ class NoteDetailPageState extends State<NoteDetailPage> {
               isError = true;
             }
 
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return new AlertDialog(
-                    title: new Text(dialogText,
-                        style: new TextStyle(
-                            color: isError ? Colors.red : Colors.black)),
-                  );
-                });
+            Toast.show(dialogText, context,
+                gravity: Toast.BOTTOM, backgroundColor: Color(0xFF34323D));
           },
         ),
         Container(

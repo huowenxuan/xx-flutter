@@ -61,4 +61,14 @@ class Request {
       print(e);
     }
   }
+
+  static delete(url, data) async {
+    try {
+      Response response = await Dio().delete(url, data: data);
+      return response.data;
+    } catch (e) {
+      print(e);
+      throw e;
+    }
+  }
 }
