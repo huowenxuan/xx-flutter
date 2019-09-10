@@ -8,6 +8,8 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:flutter_ui_nice/const/images_const.dart';
 import 'dart:async';
+import 'package:flutter_ui_nice/util/Util.dart';
+import 'package:flutter_ui_nice/page/page_const.dart';
 
 class VogueDetailPage extends StatefulWidget {
   final String id; // 用来储存传递过来的值
@@ -18,14 +20,13 @@ class VogueDetailPage extends StatefulWidget {
   _FeedState createState() => new _FeedState();
 }
 
-final ResetDuration = Duration(milliseconds: 3000);
-
 class _FeedState extends State<VogueDetailPage> with TickerProviderStateMixin {
   var _data = {};
   var _images = [];
   var _screenWeight;
   var _isLoading = false;
   AnimationController _refreshController;
+  Duration _resetDuration = Duration(milliseconds: 1200);
 
   @override
   void initState() {
@@ -33,7 +34,7 @@ class _FeedState extends State<VogueDetailPage> with TickerProviderStateMixin {
     this.initData();
 
     _refreshController =
-        AnimationController(duration: ResetDuration, vsync: this);
+        AnimationController(duration: _resetDuration, vsync: this);
     _refreshController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         //动画从 controller.forward() 正向执行 结束时会回调此方法
@@ -93,19 +94,28 @@ class _FeedState extends State<VogueDetailPage> with TickerProviderStateMixin {
     print('加载完成');
   }
 
-  _saveImage(url) async {
-    var response = await Dio()
-        .get(url, options: Options(responseType: ResponseType.bytes));
-    final result =
-        await ImageSave.saveImage("jpg", Uint8List.fromList(response.data));
-    print(result);
+  _toPhoto(index) {
+    print(index);
+    var list = [];
+    for (var item in _data['images']) {
+      list.add(item['url']);
+    }
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PhotosPage(
+          photos: list,
+          index: index as int,
+        ),
+      ),
+    );
   }
 
-  Widget _itemImages(item) => Container(
+  Widget _itemImages(item, index) => Container(
         alignment: AlignmentDirectional.center,
         child: ListView.builder(
-          itemBuilder: (context, index) {
-            var img = item[index]['thumbnails'];
+          itemBuilder: (context, index2) {
+            var img = item[index2]['thumbnails'];
             return Container(
                 margin: EdgeInsets.only(
                   left: 0.5,
@@ -114,17 +124,26 @@ class _FeedState extends State<VogueDetailPage> with TickerProviderStateMixin {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    Image.network(
-                      img,
-                      fit: BoxFit.contain,
+                    SizedBox(
+                      child: FlatButton(
+                        padding: EdgeInsets.all(0),
+                        onPressed: () {
+                          _toPhoto(index * 3 + index2);
+                        },
+                        child: Image.network(img,
+                            fit: BoxFit.contain,
+                            width: _screenWeight / 3 - 1,
+                            height: (_screenWeight / 3) / 0.68),
+                      ),
                       width: _screenWeight / 3 - 1,
+                      height: (_screenWeight / 3) / 0.68,
                     ),
                     Padding(
                         padding: const EdgeInsets.only(top: 5, bottom: 5),
                         child: FlatButton(
                           onPressed: () {
-                            var downloadUrl = item[index]['url'];
-                            _saveImage(downloadUrl);
+                            var downloadUrl = item[index2]['url'];
+                            saveNetworkImage(downloadUrl);
                             print(downloadUrl);
                           },
                           padding: EdgeInsets.all(0),
@@ -151,7 +170,7 @@ class _FeedState extends State<VogueDetailPage> with TickerProviderStateMixin {
           children: <Widget>[
             Container(
               alignment: AlignmentDirectional.center,
-              child: _itemImages(item),
+              child: _itemImages(item, index),
             )
           ],
         ),

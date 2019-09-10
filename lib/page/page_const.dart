@@ -6,6 +6,7 @@ export 'other/XPage.dart';
 export 'HomePage.dart';
 export 'logistic/LogisticSubscribePage.dart';
 export "empty_page.dart";
+export 'vogue/PhotosPage.dart';
 
 export "origin_home_page.dart";
 

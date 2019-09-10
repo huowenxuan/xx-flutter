@@ -29,6 +29,7 @@ dependencies:
   path: 1.6.4 # 创建适配任何平台的路径
   localstorage: ^2.0.0 # 本地存储，至此所有平台
   toast: ^0.1.4
+  photo_view: ^0.5.0
 
 dev_dependencies:
 
