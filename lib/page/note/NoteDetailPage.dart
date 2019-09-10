@@ -223,9 +223,11 @@ class NoteDetailPageState extends State<NoteDetailPage> {
             String dialogText = '';
             try {
               if (_endDate == null) return;
+              String text = _getInput();
+              if (text == null || text.isEmpty) return;
               var postData = {
                 'user_id': '1',
-                'text': _getInput(),
+                'text': text,
                 'start': _hadStart ? _formatDateTime(true)['timestamp'] : null,
                 'end': _formatDateTime(false)['timestamp']
               };
