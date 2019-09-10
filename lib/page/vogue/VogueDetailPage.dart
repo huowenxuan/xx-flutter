@@ -7,11 +7,8 @@ import 'package:dio/dio.dart';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:flutter_ui_nice/const/images_const.dart';
+import 'dart:async';
 
-/*
-TODO
-刷新旋转icon
- */
 class VogueDetailPage extends StatefulWidget {
   final String id; // 用来储存传递过来的值
   // 类的构造器，用来接收传递的值
@@ -21,10 +18,80 @@ class VogueDetailPage extends StatefulWidget {
   _FeedState createState() => new _FeedState();
 }
 
-class _FeedState extends State<VogueDetailPage> {
+final ResetDuration = Duration(milliseconds: 3000);
+
+class _FeedState extends State<VogueDetailPage> with TickerProviderStateMixin {
   var _data = {};
   var _images = [];
   var _screenWeight;
+  var _isLoading = false;
+  AnimationController _refreshController;
+
+  @override
+  void initState() {
+    super.initState();
+    this.initData();
+
+    _refreshController =
+        AnimationController(duration: ResetDuration, vsync: this);
+    _refreshController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        //动画从 controller.forward() 正向执行 结束时会回调此方法
+//        print("status is completed");
+        _refreshController.reset();
+        if (_isLoading) {
+          _refreshController.forward();
+        }
+      } else if (status == AnimationStatus.dismissed) {
+        //动画从 controller.reverse() 反向执行 结束时会回调此方法
+//        print("status is dismissed");
+      } else if (status == AnimationStatus.forward) {
+//        print("status is forward");
+        //执行 controller.forward() 会回调此状态
+      } else if (status == AnimationStatus.reverse) {
+        //执行 controller.reverse() 会回调此状态
+//        print("status is reverse");
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _refreshController.dispose();
+    super.dispose();
+  }
+
+  _startRefreshAnim() {
+    //开启
+    if (_refreshController != null) _refreshController.forward();
+  }
+
+  initData() async {
+    setState(() => _isLoading = true);
+    _startRefreshAnim();
+
+    String url = Request.API + 'vogue/' + widget.id;
+    var data = await Request.get(url);
+    data = data['data'];
+
+    var images = [];
+    for (var i = 0; i < data['images'].length; i++) {
+      var item = data['images'][i];
+      if (i % 3 == 0) {
+        images.add([]);
+        images[(i / 3).floor()] = [item];
+      } else {
+        images[(i / 3).floor()].add(item);
+      }
+    }
+
+    setState(() {
+      _data = data;
+      _images = images;
+      _isLoading = false;
+    });
+    print('加载完成');
+  }
 
   _saveImage(url) async {
     var response = await Dio()
@@ -105,7 +172,11 @@ class _FeedState extends State<VogueDetailPage> {
     String title = _data['title'] != null ? _data['title'] : '';
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.refresh),
+          child: RotationTransition(
+            child: Icon(Icons.refresh),
+            alignment: Alignment.center,
+            turns: _refreshController,
+          ),
           onPressed: () {
             initData();
           }),
@@ -131,33 +202,5 @@ class _FeedState extends State<VogueDetailPage> {
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    this.initData();
-  }
-
-  initData() async {
-    String url = Request.API + 'vogue/' + widget.id;
-    var data = await Request.get(url);
-    data = data['data'];
-
-    var images = [];
-    for (var i = 0; i < data['images'].length; i++) {
-      var item = data['images'][i];
-      if (i % 3 == 0) {
-        images.add([]);
-        images[(i / 3).floor()] = [item];
-      } else {
-        images[(i / 3).floor()].add(item);
-      }
-    }
-
-    setState(() {
-      _data = data;
-      _images = images;
-    });
   }
 }
