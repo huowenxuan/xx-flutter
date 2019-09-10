@@ -33,8 +33,9 @@ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
     }
     ```
 8. build
-    flutter build macos
+    flutter build macos # 可能代码没更新，如果未更新就先用Android Studio run一次，再build
     Xcode -> Archive -> Distribute App -> Copy App
+9. Archive后发现无法进行网络请求，在Xcode中 Edit Scheme -> Archive，选择Debug，导出即可
 
 ## 错误
 ### run -d macOS 时报错 PhaseScriptExecution [CP]\ Embed\ Pods\ Frameworks

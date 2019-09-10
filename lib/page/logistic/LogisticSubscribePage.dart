@@ -261,15 +261,23 @@ class _SignPageElevenState extends State<LogisticSubscribePage> {
       ),
       onTap: () async {
         var data = {
-          'number': _numberController.value.text,
-          'remark': _remarkController.value.text,
+          'number': _numberController.text,
+          'remark': _remarkController.text,
           'company': _commonComs
               .firstWhere((item) => item['name'] == _currentCompany)['company'],
           'email': [_currentEmail + '@qq.com']
         };
         print(data);
-        await Request.post(Request.API + 'logistic/subscribe', data);
-        Toast.show("OK!", context, gravity: Toast.BOTTOM);
+        try {
+          await Request.post(Request.API + 'logistic/subscribe', data);
+          setState(() {
+            _numberController.text = "";
+            _remarkController.text = "";
+          });
+          Toast.show("OK!", context, gravity: Toast.BOTTOM);
+        } catch(e) {
+          Toast.show(e, context, gravity: Toast.BOTTOM, backgroundColor: RED);
+        }
       },
     );
   }
