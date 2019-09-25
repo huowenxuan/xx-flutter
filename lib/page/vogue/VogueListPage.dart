@@ -141,18 +141,49 @@ class _FeedState extends State<VogueListPage> {
         ),
       );
 
-//
-  Widget _itemAction(item) => Row(
+
+    Widget _itemAction(item, index) => Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          _actionChild(Icons.favorite_border, item["like"]),
+          _actionChild(Icons.format_size, "", null),
           SizedBox(width: SizeUtil.getAxisX(75.0)),
-          _actionChild(Icons.chat, item["chat"]),
+          _actionChild(Icons.edit, "", () {
+          }),
           SizedBox(width: SizeUtil.getAxisX(75.0)),
-          _actionChild(Icons.share, item["share"]),
+          _actionChild(Icons.restore_from_trash, "", () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return new AlertDialog(
+                    title: new Text("Delete?"),
+                    actions: <Widget>[
+                      new FlatButton(
+                        onPressed: () async {
+                          await Request.delete(
+                              Request.API + 'vogue/' + item['id'],
+                              null);
+                          _data.removeAt(index);
+                          setState(() => _data = _data);
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Yes',
+                            style: new TextStyle(color: Colors.red)),
+                      ),
+                      new FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('No',
+                            style: new TextStyle(color: Colors.black)),
+                      ),
+                    ],
+                  );
+                });
+          }),
         ],
       );
+
 
   Widget _actionChild(icon, value) => Row(
         children: <Widget>[
@@ -235,7 +266,7 @@ class _FeedState extends State<VogueListPage> {
             Positioned(
               left: SizeUtil.getAxisX(162.0),
               bottom: SizeUtil.getAxisY(45.0),
-              child: _itemAction(item),
+              child: _itemAction(item, index),
             ),
             Container(
               margin: EdgeInsets.only(top: 20),
