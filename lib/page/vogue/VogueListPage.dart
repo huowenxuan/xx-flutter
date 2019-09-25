@@ -185,16 +185,24 @@ class _FeedState extends State<VogueListPage> {
       );
 
 
-  Widget _actionChild(icon, value) => Row(
-        children: <Widget>[
-          Icon(
-            icon,
-            color: TEXT_BLACK_LIGHT,
-            size: SizeUtil.getAxisBoth(30.0),
+  Widget _actionChild(icon, value, onPress) => Container(
+        width: 70,
+        height: 25,
+        child: FlatButton(
+          padding: EdgeInsets.all(0),
+          onPressed: onPress,
+          child: Row(
+            children: <Widget>[
+              Icon(
+                icon,
+                color: TEXT_BLACK_LIGHT,
+                size: SizeUtil.getAxisBoth(30.0),
+              ),
+              SizedBox(width: SizeUtil.getAxisX(20.0)),
+              _textBack(value),
+            ],
           ),
-          SizedBox(width: SizeUtil.getAxisX(20.0)),
-          _textBack(value),
-        ],
+        ),
       );
 
   Widget _backCard(isEmpty) => Container(
