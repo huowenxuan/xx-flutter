@@ -9,9 +9,12 @@ import "page/page_const.dart";
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  final SystemUiOverlayStyle _style =
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setSystemUIOverlayStyle(_style);
     return MaterialApp(
       title: StringConst.APP_NAME,
       debugShowCheckedModeBanner: false,
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
         'VOGUE_DETAIL': (context) => VogueDetailPage(),
         'NOTE_EDIT': (context) => NoteDetailPage(),
         'X': (context) => XPage(),
-        'LOGISTIC_SUBSCRIBE': (context)=>LogisticSubscribePage(),
+        'LOGISTIC_SUBSCRIBE': (context) => LogisticSubscribePage(),
 
         //PROFILE pages
         'PROFILE_PAGES[0]': (context) => ProfilePageOne(),

@@ -44,9 +44,14 @@ const _MENU_STRINGS = [
     'image': MainImagePath.image_walk_through
   },
   {
-    'title': "Note",
+    'title': "Logistic",
     'icon': Icons.alternate_email,
     'image': MainImagePath.image_navigation
+  },
+   {
+    'title': "X",
+    'icon': Icons.ac_unit,
+    'image': MainImagePath.image_feed
   },
   {
     'title': "Sign Up",
@@ -65,6 +70,11 @@ const _MENU_STRINGS = [
     'icon': Icons.location_city,
     'image': MainImagePath.image_feed,
     'items': FEED_PAGES
+  },
+  {
+    'title': "NT",
+    'icon': Icons.airline_seat_legroom_normal,
+    'image': MainImagePath.image_navigation
   },
 ];
 

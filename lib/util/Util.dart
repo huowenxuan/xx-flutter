@@ -1,6 +1,15 @@
 import 'package:image_save/image_save.dart';
 import 'package:dio/dio.dart';
 import 'dart:typed_data';
+// import 'package:permission_handler/permission_handler.dart';
+
+requestPermission() {
+//  PermissionHandler().checkPermissionStatus(PermissionGroup.storage);
+//     PermissionHandler().requestPermissions(<PermissionGroup>[
+//       PermissionGroup.storage,
+//       PermissionGroup.camera
+//     ]);
+}
 
 saveNetworkImage(url) async {
   var response = await Dio()

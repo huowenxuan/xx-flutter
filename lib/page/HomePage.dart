@@ -19,58 +19,6 @@ class HomePage extends StatelessWidget {
     await storage.setItem('x', true);
   }
 
-  Widget _topBar(context) {
-    var x = storage.getItem('x');
-    return SliverAppBar(
-      elevation: 1.0,
-      pinned: true,
-      backgroundColor: BLUE,
-      expandedHeight: 150.0,
-      flexibleSpace: FlexibleSpaceBar(
-        title: Padding(
-          padding: EdgeInsets.only(top: 0, left: 70),
-          child: Row(
-            children: <Widget>[
-              Image.asset(
-                MainImagePath.image_app,
-                width: 40,
-                height: 40,
-              ),
-              SizedBox(
-                width: 6.0,
-              ),
-              Text(StringConst.APP_NAME,
-                  style: TextStyle(
-                    color: TEXT_BLACK_LIGHT,
-                  )),
-              x != true
-                  ? FlatButton()
-                  : IconButton(
-                      icon: Icon(
-                        Icons.ac_unit,
-                        color: Colors.black,
-                        size: 25,
-                      ),
-                      onPressed: () async {
-//                    await saveX();
-                        Navigator.pushNamed(context, 'X');
-                      }),
-            ],
-          ),
-        ),
-        background: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [
-              YELLOW,
-              BLUE,
-            ]),
-          ),
-        ),
-        collapseMode: CollapseMode.pin,
-      ),
-    );
-  }
-
   Widget _menuItem(context, item) {
     return InkWell(
       child: Container(
@@ -201,15 +149,19 @@ class HomePage extends StatelessWidget {
 
   Widget _gridItem(context, Menu menu, index) => InkWell(
         onTap: () {
-          switch (index) {
-            case 0:
+          switch (menu.title) {
+            case 'Note':
               Navigator.pushNamed(context, "NOTE_LIST");
               break;
-            case 1:
+            case 'Vogue':
               Navigator.pushNamed(context, "VOGUE_LIST");
               break;
-            case 2:
+            case 'Logistic':
               Navigator.pushNamed(context, 'LOGISTIC_SUBSCRIBE');
+              break;
+            case 'X':
+              var x = storage.getItem('x');
+              if (x == true) Navigator.pushNamed(context, 'X');
               break;
             default:
               _clickMenu(context, menu);
@@ -273,12 +225,18 @@ class HomePage extends StatelessWidget {
     return StreamBuilder(
       builder: (context, shot) {
         return shot.hasData
-            ? CustomScrollView(
-                slivers: <Widget>[
-                  _topBar(context),
-                  _gridView(context, shot.data)
-                ],
-              )
+            ? Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: [
+                    YELLOW,
+                    BLUE,
+                  ]),
+                ),
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    _gridView(context, shot.data),
+                  ],
+                ))
             : Center(
                 child: CircularProgressIndicator(),
               );
@@ -287,7 +245,10 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _showAndroid(context) {
+  @override
+  Widget build(BuildContext context) {
+    SizeUtil.size = MediaQuery.of(context).size;
+    // saveX();
     return Theme(
       data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
       child: Scaffold(
@@ -295,11 +256,5 @@ class HomePage extends StatelessWidget {
         body: _streamBuild(context),
       ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    SizeUtil.size = MediaQuery.of(context).size;
-    return _showAndroid(context);
   }
 }
