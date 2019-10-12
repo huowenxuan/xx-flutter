@@ -42,7 +42,7 @@ db install -r ...apk
     ```
 8. build
     flutter build macos # 可能代码没更新，如果未更新就先用Android Studio run一次，再build
-    Xcode -> Archive -> Distribute App -> Copy App
+    Xcode -> Archive -> Distribute App -> Copy App（build后不要在xcode运行，直接archive，否则构建方式会改变，导致无法打开）
 9. Archive后发现无法进行网络请求，在Xcode中 Edit Scheme -> Archive，选择Debug，导出即可
 
 ## 错误

@@ -10,7 +10,10 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   final SystemUiOverlayStyle _style =
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarBrightness: Brightness.dark
+        );
 
   @override
   Widget build(BuildContext context) {
