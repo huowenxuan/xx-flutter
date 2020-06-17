@@ -16,7 +16,7 @@ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 直接输出apk
 flutter build apk
 安装到手机
-db install -r ...apk
+adb install -r xx.apk
 懒得进行权限管理，直接在手机中开启存储权限
 
 ## MacOS

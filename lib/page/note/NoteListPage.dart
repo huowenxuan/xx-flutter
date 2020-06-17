@@ -29,7 +29,9 @@ class _FeedState extends State<NoteListPage> {
       }
     });
 
-    this.initData();
+    Future.delayed(const Duration(milliseconds: 300), () {
+      this.initData();
+    });
   }
 
   @override

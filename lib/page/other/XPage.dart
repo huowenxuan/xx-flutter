@@ -30,7 +30,7 @@ class XWidgetState extends State<XPage> {
       camera = cameras.first;
       _controller = CameraController(
         camera,
-        ResolutionPreset.medium,
+        ResolutionPreset.high,
       );
       _initializeControllerFuture = _controller.initialize();
     }
