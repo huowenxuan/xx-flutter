@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 
 class Request {
-  static String API = 'http://huowenxuan.zicp.vip/';
+  static String API = 'http://hwxapi.free.idcfengye.com/';
 
 //  static get(url) async {
 //    var httpClient = new HttpClient();
