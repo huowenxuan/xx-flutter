@@ -28,14 +28,7 @@ packages:
       name: collection
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.14.11"
-  cookie_jar:
-    dependency: transitive
-    description:
-      name: cookie_jar
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.1"
+    version: "1.14.12"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -49,7 +42,7 @@ packages:
       name: dio
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.2"
+    version: "3.0.9"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -62,6 +55,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.2.0"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.1.4"
   image_picker:
     dependency: "direct main"
     description:
@@ -103,7 +103,7 @@ packages:
       name: meta
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.6"
+    version: "1.1.8"
   path:
     dependency: "direct main"
     description:
@@ -180,5 +180,5 @@ packages:
     source: hosted
     version: "2.0.8"
 sdks:
-  dart: ">=2.3.0 <3.0.0"
+  dart: ">2.4.0 <3.0.0"
   flutter: ">=1.6.7 <2.0.0"
