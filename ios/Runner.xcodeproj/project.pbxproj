@@ -249,12 +249,12 @@
 				TargetAttributes = {
 					28C4C6D4231F9EFD0061FDB2 = {
 						CreatedOnToolsVersion = 10.3;
-						DevelopmentTeam = PQB7M5XKY8;
+						DevelopmentTeam = NU2DC4F79B;
 						ProvisioningStyle = Automatic;
 					};
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = PQB7M5XKY8;
+						DevelopmentTeam = NU2DC4F79B;
 					};
 				};
 			};
@@ -484,7 +484,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = PQB7M5XKY8;
+				DEVELOPMENT_TEAM = NU2DC4F79B;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -498,6 +498,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hwx.xx-flutter";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Profile;
@@ -514,7 +515,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PQB7M5XKY8;
+				DEVELOPMENT_TEAM = NU2DC4F79B;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ShareExtension/Info.plist;
@@ -543,7 +544,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PQB7M5XKY8;
+				DEVELOPMENT_TEAM = NU2DC4F79B;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ShareExtension/Info.plist;
@@ -571,7 +572,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = PQB7M5XKY8;
+				DEVELOPMENT_TEAM = NU2DC4F79B;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ShareExtension/Info.plist;
@@ -696,7 +697,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = PQB7M5XKY8;
+				DEVELOPMENT_TEAM = NU2DC4F79B;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -710,6 +711,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hwx.xx-flutter";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -721,7 +723,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = PQB7M5XKY8;
+				DEVELOPMENT_TEAM = NU2DC4F79B;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -735,6 +737,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hwx.xx-flutter";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
