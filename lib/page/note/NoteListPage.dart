@@ -41,16 +41,16 @@ class _FeedState extends State<NoteListPage> {
   }
 
   _formatTime(item) {
-    formatTs(ts) {
+    formatDt(ts) {
       return DateFormat('y/M/d HH:mm')
-          .format(DateTime.fromMillisecondsSinceEpoch(item['end']));
+          .format(DateTime.parse(ts));
     }
 
     String show = '';
     if (item['start'] != null) {
-      show += formatTs(item['start']) + ' - ';
+      show += formatDt(item['start']) + ' - ';
     }
-    show += formatTs(item['end']);
+    show += formatDt(item['end']);
     return show;
   }
 
@@ -161,7 +161,7 @@ class _FeedState extends State<NoteListPage> {
                 context: context,
                 builder: (context) {
                   return new AlertDialog(
-                    title: new Text("Delete?"),
+                    title: new Text("删除？"),
                     actions: <Widget>[
                       new FlatButton(
                         onPressed: () async {
@@ -265,7 +265,7 @@ class _FeedState extends State<NoteListPage> {
                 ),
                 // 文本
                 Positioned(
-                  top: SizeUtil.getAxisY(118.0),
+                  top: SizeUtil.getAxisY(95.0),
                   left: SizeUtil.getAxisX(160.0),
                   right: 30,
                   height: SizeUtil.getAxisY(70.0),

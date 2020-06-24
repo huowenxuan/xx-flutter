@@ -50,7 +50,7 @@ class NoteDetailPageState extends State<NoteDetailPage> {
       _inputController.text = data['text'];
 
       if (data['start'] != null) {
-        DateTime start = DateTime.fromMillisecondsSinceEpoch(data['start']);
+        DateTime start = DateTime.parse(data['start']);
         _hadStart = true;
         _startDate = start;
         _startTime = start != null ? TimeOfDay.fromDateTime(start) : null;
@@ -58,7 +58,7 @@ class NoteDetailPageState extends State<NoteDetailPage> {
 
       DateTime end = DateTime.now();
       if (data['end'] != null)
-        end = DateTime.fromMillisecondsSinceEpoch(data['end']);
+        end = DateTime.parse(data['end']);
       _endDate = end;
       _endTime = TimeOfDay.fromDateTime(end);
     });
@@ -228,8 +228,8 @@ class NoteDetailPageState extends State<NoteDetailPage> {
               var postData = {
                 'user_id': '1',
                 'text': text,
-                'start': _hadStart ? _formatDateTime(true)['timestamp'] : null,
-                'end': _formatDateTime(false)['timestamp']
+                'start': _hadStart ? _formatDateTime(true)['datetime'].toString() : null,
+                'end': _formatDateTime(false)['datetime'].toString()
               };
               if (_data['id'] != null) {
                 await Request.put(
@@ -238,7 +238,7 @@ class NoteDetailPageState extends State<NoteDetailPage> {
                 await Request.post(Request.API + 'note', postData);
               }
               if (widget.onSuccess != null) widget.onSuccess();
-              dialogText = 'Save Success!';
+              dialogText = '保存成功!';
               Navigator.pop(context);
             } catch (e) {
               dialogText = e.toString();

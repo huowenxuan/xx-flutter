@@ -7,7 +7,7 @@ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 
 ## iOS
 
-打包先`flutter build ios`，再打包
+打包先 flutter build ios，再打包
 
 ## Android
 
