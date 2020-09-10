@@ -1,8 +1,10 @@
-## 源
+## 执行命令之前一定要修改源
 
 ```
 export PUB_HOSTED_URL=https://pub.flutter-io.cn
 export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
+
+flutter docter # 执行该命令，时间长不构建可能会卡几十分钟
 ```
 
 ## iOS
@@ -14,7 +16,8 @@ export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
 直接输出apk
 flutter build apk
 安装到手机
-adb install -r xx.apk
+cd build/app/outputs/apk/release
+adb install -r app-release.apk
 懒得进行权限管理，直接在手机中开启存储权限
 
 ## MacOS

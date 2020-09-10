@@ -249,12 +249,12 @@
 				TargetAttributes = {
 					28C4C6D4231F9EFD0061FDB2 = {
 						CreatedOnToolsVersion = 10.3;
-						DevelopmentTeam = NU2DC4F79B;
+						DevelopmentTeam = PQB7M5XKY8;
 						ProvisioningStyle = Automatic;
 					};
 					97C146ED1CF9000F007C117D = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = NU2DC4F79B;
+						DevelopmentTeam = PQB7M5XKY8;
 					};
 				};
 			};
@@ -483,8 +483,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = NU2DC4F79B;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = PQB7M5XKY8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -515,7 +515,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NU2DC4F79B;
+				DEVELOPMENT_TEAM = PQB7M5XKY8;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ShareExtension/Info.plist;
@@ -544,7 +544,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NU2DC4F79B;
+				DEVELOPMENT_TEAM = PQB7M5XKY8;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ShareExtension/Info.plist;
@@ -572,7 +572,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NU2DC4F79B;
+				DEVELOPMENT_TEAM = PQB7M5XKY8;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ShareExtension/Info.plist;
@@ -696,8 +696,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = NU2DC4F79B;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = PQB7M5XKY8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -722,8 +722,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6;
-				DEVELOPMENT_TEAM = NU2DC4F79B;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = PQB7M5XKY8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -67,7 +67,7 @@
 }
 
 - (void)upload: (NSString *)urlStr {
-    NSString *host = @"http://hwxapi.free.idcfengye.com/vogue/start";
+    NSString *host = @"http://http://api.zjx.show/vogue/start";
     //  NSString *host = @"http://localhost:7001/api/vogue/start";
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: host]];

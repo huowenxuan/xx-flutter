@@ -31,7 +31,9 @@ class _FeedState extends State<VogueDetailPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    this.initData();
+    Future.delayed(const Duration(milliseconds: 300), () {
+      this.initData();
+    });
 
     _refreshController =
         AnimationController(duration: _resetDuration, vsync: this);
