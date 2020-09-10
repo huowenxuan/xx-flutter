@@ -73,7 +73,7 @@ class _FeedState extends State<VogueDetailPage> with TickerProviderStateMixin {
     setState(() => _isLoading = true);
     _startRefreshAnim();
 
-    String url = Request.API + 'vogue/' + widget._id;
+    String url = Request.API + 'vogue/' + widget.id;
     var data = await Request.get(url);
     data = data['data'];
 

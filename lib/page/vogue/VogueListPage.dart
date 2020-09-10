@@ -255,12 +255,12 @@ class _FeedState extends State<VogueListPage> {
             context,
             MaterialPageRoute(
               builder: (context) => VogueDetailPage(
-                _id: item['_id'],
+                id: item['_id'],
               ),
             ),
           );
 //          Navigator.pushNamed(context, 'VOGUE_DETAIL', arguments: {
-//            '_id': item['_id']
+//            'id': item['_id']
 //          });
         },
         child: Stack(
