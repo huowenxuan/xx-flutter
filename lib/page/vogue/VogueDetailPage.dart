@@ -12,9 +12,9 @@ import 'package:flutter_ui_nice/util/Util.dart';
 import 'package:flutter_ui_nice/page/page_const.dart';
 
 class VogueDetailPage extends StatefulWidget {
-  final String _id; // 用来储存传递过来的值
+  final String id; // 用来储存传递过来的值
   // 类的构造器，用来接收传递的值
-  VogueDetailPage({Key key, this._id}) : super(key: key);
+  VogueDetailPage({Key key, this.id}) : super(key: key);
 
   @override
   _FeedState createState() => new _FeedState();
