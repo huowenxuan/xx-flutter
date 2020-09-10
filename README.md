@@ -10,6 +10,8 @@ flutter docter # 执行该命令，时间长不构建可能会卡几十分钟
 ## iOS
 
 打包先 flutter build ios，再打包
+flutter build ios --release ???
+导出要选择不压缩
 
 ## Android
 
