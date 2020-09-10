@@ -231,9 +231,9 @@ class NoteDetailPageState extends State<NoteDetailPage> {
                 'start': _hadStart ? _formatDateTime(true)['datetime'].toString() : null,
                 'end': _formatDateTime(false)['datetime'].toString()
               };
-              if (_data['id'] != null) {
+              if (_data['_id'] != null) {
                 await Request.put(
-                    Request.API + 'note/' + _data['id'], postData);
+                    Request.API + 'note/' + _data['_id'], postData);
               } else {
                 await Request.post(Request.API + 'note', postData);
               }

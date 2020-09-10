@@ -56,7 +56,7 @@ class _FeedState extends State<VogueListPage> {
         imageUrls.add(image['thumbnails']);
       }
       list[i] = {
-        'id': item['id'],
+        '_id': item['_id'],
         'header': header,
         'name': item['title'],
         'desc': item['category'],
@@ -161,7 +161,7 @@ class _FeedState extends State<VogueListPage> {
                       new FlatButton(
                         onPressed: () async {
                           await Request.delete(
-                              Request.API + 'vogue/' + item['id'],
+                              Request.API + 'vogue/' + item['_id'],
                               null);
                           _data.removeAt(index);
                           setState(() => _data = _data);
@@ -255,12 +255,12 @@ class _FeedState extends State<VogueListPage> {
             context,
             MaterialPageRoute(
               builder: (context) => VogueDetailPage(
-                id: item['id'],
+                _id: item['_id'],
               ),
             ),
           );
 //          Navigator.pushNamed(context, 'VOGUE_DETAIL', arguments: {
-//            'id': item['id']
+//            '_id': item['_id']
 //          });
         },
         child: Stack(

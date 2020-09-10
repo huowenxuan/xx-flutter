@@ -73,7 +73,7 @@ class _FeedState extends State<NoteListPage> {
       var end = item['end'];
 
       list[i] = {
-        'id': item['id'],
+        '_id': item['_id'],
         'header': header,
         'start': start,
         'end': end,
@@ -166,7 +166,7 @@ class _FeedState extends State<NoteListPage> {
                       new FlatButton(
                         onPressed: () async {
                           await Request.delete(
-                              Request.API + 'note/' + item['id'],
+                              Request.API + 'note/' + item['_id'],
                               null);
                           _data.removeAt(index);
                           setState(() => _data = _data);
